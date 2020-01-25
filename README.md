@@ -15,9 +15,21 @@ don't. it doesn't even do anything with any roms yet
 - Path between Pewter City and Route 3 is blocked until the Boulder Badge is acquired (originally just from PC to R3)
 - You can no longer hop down a ledge to get back to Pewter City after leaving the backside of the Pewter Museum
 - You can return to Mt. Moon from Cerulean City along Route 4
+- You can no longer use the ledge to the right side of Cerulean Gym to return to the main area of the city from the outside. You must use the Cuttable tree or find another way in
 
 ## Things To Keep In Mind
+- Every town has direct access to exactly one Pokemon Center
+  - The Mt. Moon and Rock Tunnel Pokemon Centers are left as is...for now
+  - This does NOT apply to PokeMarts
+- Both fossils can be obtained from Mt. Moon
+- Flash is available before you have to traverse Rock Tunnel
 - If key items are shuffled with hidden items, you will always be able to get the Itemfinder before picking up any hidden items
+- The back entrances of Pokemon Mansion and the Power Plant lead back to wherever the regular entrance leads
+- Mr. Fuji teleports the player to wherever the entrance of Pokemon Tower is instead of his house. You still have to find him again and talk to him to get the Poke Flute
+  - If dungeon areas are disconnected, Mr. Fuji will not teleport the player at all
+- Nothing past the entrance to Route 23 is shuffled (though the entrance itself is), meaning the Victory Road and Indigo Plateau are left intact
+  - The order of the Elite Four are shuffled, however. Champion is still last
+ - Safari Zone is left intact
 
 ## Things to Implement Later
 - First is key item shuffling
