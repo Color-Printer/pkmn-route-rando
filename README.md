@@ -7,15 +7,18 @@ Inspired by stump's Pokémon Red/Blue Key Item Randomizer: https://github.com/st
 CURRENTLY MAPPING OUT LOGIC: up to Route 4 past Mt. Moon
 
 ## HOW TO USE
-don't. it doesn't even randomize anything yet. you can currently, however, run "patcher.py" to implement some map changes but it requires a US/E Pokemon Red file named "pkmnred.gb" in the same directory. i'll implement actual custom filename handling later, as well as support for blue version. **_do not feed it any other rom file, including Pokemon Yellow and Japanese Red/Green/Blue! it will likely break! use existing romhacks as a base at your own risk!_**
+Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname]" to implement some map changes and randomize _all_ items up until Route 4. There is no logic applied here yet, however. Flags to toggle/separate the pools to be added later. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
 
 ## IMPLEMENTED
 - A solver that can attempt to go from point A to point B with a set starting inventory, picking up items along the way
 - An algorithm for finding "bridges" in the map, useful for making sure the player can't find their way to the other side of one-way obstacles
-- A patcher that currently just patches in some necessary changes for logic (only ones below are implemented)
+- Shuffling and mixing of various item pools
+- Writing patches to a ROM file, including logic fixes and behind-the-scenes fixes to make the replacements work properly
 
 ## Logic Changes From Base Game (these are actually implemented in the patcher)
 - Path between Viridian City and Route 2 is blocked until the Pokedex is acquired (originally just from VC to R2)
+  - Viridian Gym is on the Route 2 side of this obstacle, and the ledge below it has been turned into trees
+  - Cut can also be used to bypass the old man
 - Path between Pewter City and Route 3 is blocked until the Boulder Badge is acquired (originally just from PC to R3)
 - You can no longer hop down a ledge to get back to Pewter City after leaving the backside of the Pewter Museum
 - You can return to Mt. Moon from Cerulean City along Route 4

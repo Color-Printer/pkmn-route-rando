@@ -1,4 +1,5 @@
 from world import *
+from items import *
 
 game = World()
 
@@ -34,12 +35,13 @@ game.newWarp("reds_house_2F",0,"reds_house_1F",2)
 ###Blue's House###
 game.newArea('blues_house',"Blue's House",0x27)
 game.newWarp("blues_house",0,"pallet_town",1,"True",[1],[1])
-game.newNPC("blues_house",1,"Daisy Oak",[ItemLocation("town map","Map Gift","has('pokedex')")])
+game.newNPC("blues_house",1,"Daisy Oak",[ItemLocation(TOWN_MAP,"Map Gift","has(POKEDEX)",address=0x19b7c)])
+game.key_item_locs.append(game.areas["blues_house"].objects[1].itemsHeld[0])
 
 ###Oak's Lab###
 game.newArea("oaks_lab","Prof. Oak's Lab",0x28)
 game.newWarp("oaks_lab",0,"pallet_town",2,"True",[1],[2])
-game.newNPC("oaks_lab",0,"Prof. Oak",[ItemLocation("pokedex", "Parcel Exchange","has('oak parcel')")])
+game.newNPC("oaks_lab",0,"Prof. Oak",[ItemLocation(POKEDEX, "Parcel Exchange","has(OAKS_PARCEL)")])
 #Oak will never be randomized (it would just break things too much otherwise), so it's okay
 #if he's object number 0
 game.newNPC("oaks_lab",7,"Lab Girl")
@@ -50,25 +52,32 @@ game.newNPC("oaks_lab",9,"Lab Aide 2")
 game.newArea("route_1","Route 1",0x0C)
 game.newExit("route_1","pallet_town")
 game.newExit("route_1","viridian_city")
-game.newNPC("route_1",1,"Potion Guy",[ItemLocation("potion","Free Potion")])
+game.newNPC("route_1",1,"Potion Guy",[ItemLocation(POTION,"Free Potion",address=0x1CACA)])
+game.npc_item_locs.append(game.areas["route_1"].objects[1].itemsHeld[0])
 game.newNPC("route_1",2,"Ledge Dude")
 
 ###Viridian City###
+#Main Area
 game.newTown("viridian_city","Viridian City",0x01)
 game.newExit("viridian_city","route_1")
 #newExit("viridian_city","route_22")
-game.newExit("viridian_city","route_2v","has('pokedex')")
+game.newExit("viridian_city","viridian_north","has(POKEDEX) or canCut()")
 game.newWarp("viridian_city",0,"viridian_center",0)
 game.newWarp("viridian_city",1,"viridian_mart",0)
 game.newWarp("viridian_city",2,"viridian_school",0)
 game.newWarp("viridian_city",3,"viridian_house",0)
-game.newWarp("viridian_city",4,"viridian_gym",0,"firstSevenBadges()")
 game.newNPC("viridian_city",1,"Pokeball Kid")
-game.newNPC("viridian_city",2,"Viridian Gym Bystander")
 game.newNPC("viridian_city",3,"Caterpillar Kid")
-game.newNPC("viridian_city",6,"Dream Eater Guy",[ItemLocation("TM42","Dream Eater TM")],"canCut() or canSurf()")
-game.newNPC("viridian_city",7,"Old Man",req="has('pokedex')")
-game.newHiddenItem("viridian_city",0,"Hidden Potion on Tree","potion")
+game.newNPC("viridian_city",6,"Dream Eater Guy",[ItemLocation(TM_42,"Dream Eater TM",address=0x191A6)],"canCut() or canSurf()")
+game.npc_item_locs.append(game.areas["viridian_city"].objects[6].itemsHeld[0])
+game.newNPC("viridian_city",7,"Old Man",req="has(POKEDEX)")
+game.newHiddenItem("viridian_city",0,"Hidden Potion on Tree",POTION,address=0x46F8F)
+#Above old man
+game.newTown("viridian_north","Viridian City - North Part",0x01)
+game.newExit("viridian_north","viridian_city","has(POKEDEX) or canCut()")
+game.newExit("viridian_north","route_2v")
+game.newNPC("viridian_north",2,"Viridian Gym Bystander")
+game.newWarp("viridian_north",4,"viridian_gym",0,"firstSevenBadges()")
 
 ###Viridian Pokemon Center###
 game.newArea("viridian_center","Viridian Pokemon Center",0x29)
@@ -79,7 +88,7 @@ game.newNPC("viridian_center",3,"Free Healthcare Kid")
 ###Viridian PokeMart###
 game.newArea("viridian_mart","Viridian PokeMart",0x2A)
 game.newWarp("viridian_mart",0,"viridian_city",1,"True",[1],[1])
-game.newNPC("viridian_mart",0,"Viridian Shopkeeper",[ItemLocation("oak parcel","Parcel Pickup")])
+game.newNPC("viridian_mart",0,"Viridian Shopkeeper",[ItemLocation(OAKS_PARCEL,"Parcel Pickup")])
 game.newNPC("viridian_mart",2,"Antidote Shopper")
 game.newNPC("viridian_mart",3,"Sold-Out Potion Shopper")
 
@@ -97,23 +106,24 @@ game.newNPC("viridian_house",2,"Viridian Daughter")
 
 ###Viridian Gym###
 game.newArea("viridian_gym","Viridian Gym",0x2D)
-game.newWarp("viridian_gym",0,"viridian_city",4,"True",[1],[4])
-game.newNPC("viridian_gym",1,"Giovanni",[ItemLocation("earthbadge","Giovanni's Badge"),ItemLocation("TM27","Giovanni's TM")])
+game.newWarp("viridian_gym",0,"viridian_north",4,"True",[1],[4])
+game.newNPC("viridian_gym",1,"Giovanni",[ItemLocation(EARTHBADGE,"Giovanni's Badge"),ItemLocation(TM_27,"Giovanni's TM",address=0x749A3)])
+game.npc_item_locs.append(game.areas["viridian_gym"].objects[1].itemsHeld[1])
 game.newNPC("viridian_gym",10,"Viridian Gym Guide")
-game.newItemLoc("viridian_gym",11,"Revive","revive")
+game.newItemLoc("viridian_gym",11,"Revive",REVIVE,address=0x74C3E)
 
 ###Route 2###
 #Viridian Side (south)
 game.newArea("route_2v","Route 2 - Viridian Side",0x0D)
-game.newExit("route_2v","viridian_city","has('pokedex')")
+game.newExit("route_2v","viridian_city","has(POKEDEX)")
 game.newWarp("route_2v",5,"forest_south_gate",2)
 game.newExit("route_2v","route_2se","canCut()")
 #Southeast Section
 game.newArea("route_2se","Route 2 - Southeast Section",0x0D)
 game.newExit("route_2se","route_2v","canCut()")
 game.newWarp("route_2se",4,"route_2_gate",2)
-game.newItemLoc("route_2se",1,"Moon Stone","moon stone")
-game.newItemLoc("route_2se",2,"HP Up","hp up")
+game.newItemLoc("route_2se",1,"Moon Stone",MOON_STONE,address=0x5404A)
+game.newItemLoc("route_2se",2,"HP Up",HP_UP,address=0x54051)
 #Mideast Section
 game.newArea("route_2m","Route 2 - Mideast Section",0x0D)
 game.newExit("route_2m","route_2ne","canCut()")
@@ -134,7 +144,8 @@ game.newWarp("route_2p",1,"forest_north_gate",1)
 game.newArea("route_2_gate","Route 2 Gate",0x31)
 game.newWarp("route_2_gate",0,"route_2m",3,"True",[1],[3])
 game.newWarp("route_2_gate",2,"route_2se",4,"True",[3],[4])
-game.newNPC("route_2_gate",1,"Flash Aide",[ItemLocation("flash","10 Pokemon Reward")])
+game.newNPC("route_2_gate",1,"Flash Aide",[ItemLocation(FLASH,"10 Pokemon Reward",address=0x5d5e8)])
+game.key_item_locs.append(game.areas["route_2_gate"].objects[1].itemsHeld[0])
 game.newNPC("route_2_gate",2,"Route 2 Catcher")
 
 ###Route 2 Trade House###
@@ -162,18 +173,18 @@ game.newDungeon("viridian_forest","Viridian Forest",0x33)
 game.newWarp("viridian_forest",0,"forest_north_gate",2,"True",[1],[3])
 game.newWarp("viridian_forest",2,"forest_south_gate",1,"True",[3,4,5],[1,1,1])
 game.newNPC("viridian_forest",1,"Forest Entrance Catcher")
-game.newItemLoc("viridian_forest",5,"Antidote","antidote")
-game.newItemLoc("viridian_forest",6,"Potion","potion")
-game.newItemLoc("viridian_forest",7,"Poke Ball","poke ball")
+game.newItemLoc("viridian_forest",5,"Antidote",ANTIDOTE,address=0x6122C)
+game.newItemLoc("viridian_forest",6,"Potion",POTION,address=0x61233)
+game.newItemLoc("viridian_forest",7,"Poke Ball",POKE_BALL,address=0x6123A)
 game.newNPC("viridian_forest",8,"Out of Balls Catcher")
-game.newHiddenItem("viridian_forest",0,"Hidden Potion","potion")
-game.newHiddenItem("viridian_forest",1,"Hidden Antidote","antidote")
+game.newHiddenItem("viridian_forest",0,"Hidden Potion",POTION,address=0x46E49)
+game.newHiddenItem("viridian_forest",1,"Hidden Antidote",ANTIDOTE,address=0x46E4F)
 
 ###Pewter City###
 #Main Area
 game.newTown("pewter_city","Pewter City",0x02)
 game.newExit("pewter_city","route_2p")
-game.newExit("pewter_city","route_3","has('boulderbadge')")
+game.newExit("pewter_city","route_3","has(BOULDERBADGE)")
 game.newExit("pewter_city","pewter_city_back","canCut()")
 game.newWarp("pewter_city",0,"museum_1f",0)
 game.newWarp("pewter_city",2,"pewter_gym",0)
@@ -205,13 +216,15 @@ game.newNPC("museum_2f",5,"Pikachu Girl's Father")
 #Back Entrance
 game.newArea("museum_back","Pewter Museum - Back",0x34)
 game.newWarp("museum_back",2,"pewter_city",1,"True",[3],[1])
-game.newNPC("museum_back",3,"Old Amber Scientist",[ItemLocation("old amber","Old Amber")])
+game.newNPC("museum_back",3,"Old Amber Scientist",[ItemLocation(OLD_AMBER,"Old Amber",address=0x5c266)])
+game.key_item_locs.append(game.areas["museum_back"].objects[3].itemsHeld[0])
 game.newNPC("museum_back",4,"Museum Back Scientist")
 
 ###Pewter Gym###
 game.newArea("pewter_gym","Pewter Gym",0x36)
 game.newWarp("pewter_gym",0,"pewter_city",2,"True",[1],[2])
-game.newNPC("pewter_gym",1,"Brock",[ItemLocation("boulderbadge","Brock's Badge"),ItemLocation("TM34","Brock's TM")])
+game.newNPC("pewter_gym",1,"Brock",[ItemLocation(BOULDERBADGE,"Brock's Badge"),ItemLocation(TM_34,"Brock's TM",address=0x5C3ED)])
+game.npc_item_locs.append(game.areas["viridian_gym"].objects[1].itemsHeld[1])
 game.newNPC("pewter_gym",3,"Pewter Gym Guide")
 
 ###Pewter Nidoran House###
@@ -239,7 +252,7 @@ game.newNPC("pewter_center",2,"Gentleman on the Phone")
 
 ###Route 3###
 game.newArea("route_3","Route 3",0x0E)
-game.newExit("route_3","pewter_city","has('boulderbadge')")
+game.newExit("route_3","pewter_city","has(BOULDERBADGE)")
 game.newExit("route_3","route_4p")
 game.newNPC("route_3",1,"Mt. Moon Traveler")
 
@@ -254,8 +267,8 @@ game.newNPC("route_4p",1,"Tripped Over Geodude")
 game.newArea("route_4c","Route 4 - Pewter Side",0x0F)
 game.newWarp("route_4c",1,"mt_moon_b1f",7)
 #game.newExit("route_4c","cerulean_city")
-game.newItemLoc("route_4c",3,"TM 04","TM04")
-game.newHiddenItem("route_4c",0,"Hidden Great Ball","great ball")
+game.newItemLoc("route_4c",3,"TM 04",TM_04,address=0x543DF)
+game.newHiddenItem("route_4c",0,"Hidden Great Ball",GREAT_BALL,address=0x470A6)
 
 ###Mt. Moon Pokemon Center###
 game.newArea("mt_moon_center","Mt. Moon Pokemon Center",0x44)
@@ -269,12 +282,12 @@ game.newNPC("mt_moon_center",4,"Magikarp Salesman")
 game.newDungeon("mt_moon_1f","Mt. Moon - 1F",0x3B)
 game.newWarp("mt_moon_1f",0,"route_4p",1,"True",[1],[1])
 game.newWarp("mt_moon_1f",2,"mt_moon_b1f",0,"True",[3,4],[2,3])
-game.newItemLoc("mt_moon_1f",8,"Potion","potion")
-game.newItemLoc("mt_moon_1f",9,"Moon Stone","moon stone")
-game.newItemLoc("mt_moon_1f",10,"Rare Candy","rare candy")
-game.newItemLoc("mt_moon_1f",11,"Escape Rope","escape rope")
-game.newItemLoc("mt_moon_1f",12,"Potion 2","potion")
-game.newItemLoc("mt_moon_1f",13,"TM 12","TM12")
+game.newItemLoc("mt_moon_1f",8,"Potion",POTION,address=0x49B5F)
+game.newItemLoc("mt_moon_1f",9,"Moon Stone",MOON_STONE,address=0x49B66)
+game.newItemLoc("mt_moon_1f",10,"Rare Candy",RARE_CANDY,address=0x49B6D)
+game.newItemLoc("mt_moon_1f",11,"Escape Rope",ESCAPE_ROPE,address=0x49B74)
+game.newItemLoc("mt_moon_1f",12,"Potion 2",POTION,address=0x49B7B)
+game.newItemLoc("mt_moon_1f",13,"TM 12",TM_12,address=0x49B82)
 #B1F
 game.newDungeon("mt_moon_b1f","Mt. Moon - B1F",0x3C)
 game.newWarp("mt_moon_b1f",0,"mt_moon_1f",2,"True",[2,3],[3,4])
@@ -283,14 +296,14 @@ game.newWarp("mt_moon_b1f",7,"route_4c",2)
 #B2F
 game.newDungeon("mt_moon_b2f","Mt. Moon - B2F",0x3D)
 game.newWarp("mt_moon_b2f",0,"mt_moon_b1f",1,"True",[1,2,3],[4,5,6])
-game.newItemLoc("mt_moon_b2f",6,"Left Fossil","dome fossil")
-game.newItemLoc("mt_moon_b2f",7,"Right Fossil","helix fossil")
-game.newItemLoc("mt_moon_b2f",8,"HP Up","hp up")
-game.newItemLoc("mt_moon_b2f",9,"TM 01","TM01")
+game.newKeyItemLoc("mt_moon_b2f",6,"Left Fossil",DOME_FOSSIL,address=0x49ef0)
+game.newKeyItemLoc("mt_moon_b2f",7,"Right Fossil",HELIX_FOSSIL,address=0x49f2b)
+game.newItemLoc("mt_moon_b2f",8,"HP Up",HP_UP,address=0x4A029)
+game.newItemLoc("mt_moon_b2f",9,"TM 01",TM_01,address=0x4A030)
 
-for n, a in game.areas.items():
-    print(a.name + " - " + str(game.canGetToFromStart(a.id)))
+# for n, a in game.areas.items():
+#     print(a.name + " - " + str(game.canGetToFromStart(a.id)))
 
-print(game.canGetToFromStart("museum_back",{"cut","cascadebadge"}))
-print(game.canGetToFromStart("museum_back"))
-print(game.canGetToFromStart("route_4c"))
+#print(game.canGetToFromStart("museum_back",{CUT,CASCADEBADGE}))
+#print(game.canGetToFromStart("museum_back"))
+#print(game.canGetToFromStart("route_4c"))

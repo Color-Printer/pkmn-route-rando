@@ -1,10 +1,15 @@
 from class_defs import *
+import random
 
 class World:
     def __init__(self):
         self.areas = {}
         self.inventory = set()
         self.bridge_time = 0
+        self.key_item_locs = []
+        self.npc_item_locs = []
+        self.item_pickups_locs = []
+        self.hidden_item_locs = []
 
     def newArea(self,id,name,map_id):
         self.areas[id] = Area(name,id,map_id)
@@ -21,14 +26,25 @@ class World:
     def newWarp(self,id,w_id,dest_id,dest_w_id,req="True",extra=[],extra_dest=[]):
         self.areas[id].exits.append(Warp(w_id,dest_id,dest_w_id,req,extra,extra_dest))
 
-    def newItemLoc(self,id,o_id,name,item,req="True"):
-        self.areas[id].objects[o_id] = ItemLocation(item,name,req)
+    #use this for things that are not actually items, like rescuing mr. fuji
+    #or completing silph co
+    def newFakeItemLoc(self,id,o_id,name,item,req="True",address=0):
+        self.areas[id].objects[o_id] = ItemLocation(item,name,req,address)
+
+    def newItemLoc(self,id,o_id,name,item,req="True",address=0):
+        self.areas[id].objects[o_id] = ItemLocation(item,name,req,address)
+        self.item_pickups_locs.append(self.areas[id].objects[o_id])
+
+    def newKeyItemLoc(self,id,o_id,name,item,req="True",address=0):
+        self.areas[id].objects[o_id] = ItemLocation(item,name,req,address)
+        self.key_item_locs.append(self.areas[id].objects[o_id])
 
     def newNPC(self,id,o_id,name,items=[],req="True"):
         self.areas[id].objects[o_id] = NPC(name,items,req)
 
-    def newHiddenItem(self,id,o_id,name,item,req="True"):
-        self.areas[id].hiddenItems[o_id] = ItemLocation(item,name,req)
+    def newHiddenItem(self,id,o_id,name,item,req="True",address=0):
+        self.areas[id].hiddenItems[o_id] = ItemLocation(item,name,req,address)
+        self.hidden_item_locs.append(self.areas[id].hiddenItems[o_id])
 
     def clearReachableFlags(self):
         for n, a in self.areas.items():
@@ -105,3 +121,15 @@ class World:
         for n, a in self.areas.items():
             if a.visited == False:
                 self.bridgeHelper(a)
+
+    def shuffle_items(self):
+        self.random = random.Random()
+
+        self.key_item_locs += self.npc_item_locs
+        self.key_item_locs += self.item_pickups_locs
+        self.key_item_locs += self.hidden_item_locs
+        initialOrder = self.key_item_locs[:]
+        self.random.shuffle(initialOrder)
+        mapping = dict(zip(self.key_item_locs, initialOrder))
+
+        return mapping

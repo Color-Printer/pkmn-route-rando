@@ -70,10 +70,11 @@ class Warp(Exit):
         self.extra_dest_warp_id = extra_dest
 
 class ItemLocation:
-    def __init__(self,item,name,req="True"):
+    def __init__(self,item,name,req="True",address=0):
         self.item = item
         self.requirements = req
         self.name = name
+        self.address = address
 
     def __str__(self):
         s = self.name + ": " + self.item
