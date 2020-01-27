@@ -22,6 +22,7 @@ def replace_item(rom, addr, item):
 
 parser = argparse.ArgumentParser(description='A key item/warp randomizer for Pokemon Red and Blue.')
 parser.add_argument('romfile', type=argparse.FileType('rb'), help="filename for a valid Pokemon Red or Blue UE ROM.")
+parser.add_argument('flags', nargs='*', default=["K"], help="flags for randomization. see documentation for details.")
 args = parser.parse_args()
 
 with args.romfile as romFile:
@@ -75,13 +76,17 @@ replace(romData,0x19263,"C9")
 # skip the part where he drags you to the gym.
 replace(romData,0x1943d,"C3D724")
 
+# allow the player to pick up both fossils on mt moon.
+replace(romData,0x49E86,"94")
+replace(romData,0x49F5A,"00")
+
 # create a gap in a ledge on route 4 to allow access to mt. moon from
 # cerulean city.
 replace(romData,0x544C7,"5C")
 
 # replace a ledge with a fence to prevent hopping back into cerulean city
 # from the outside, forcing the player to use the Cut tree to the south or
-# finding another way in.
+# find another way in.
 replace(romData,0x188F4,"777701")
 
 # the following fixes set up key item shuffling properly (mainly text stuff)
@@ -131,7 +136,6 @@ replace(romData, 0x9c599, '50014bcf00e7505000')
 
 # Poké Flute slot
 # patches the Poké Doll/Marowak oversight.
-# Make Mr. Fuji not be required by changing the initial state of the Silph guards.
 replace(romData, 0x0d63f, '7664')
 replace(romData, 0x0d645, 'c7')
 replace(romData, 0x0e022, 'fa5ed3fe93c0fad8cffe91c0213260c9008daee77f93a7a4b1a47fa0b1a44fa4adaeb4a6a77fb2a4b0b4a4ada2a455a1b1a4a0aab27fa8ad7fb3a7a8b255a6a0aca47fa0abb1a4a0a3b87fe355aba4b3bd7fadaeb37fa0a3a355a0adb87facaeb1a4e75850')
@@ -160,10 +164,16 @@ replace(romData, 0x94ca2, '4f50014bcf00e7505000')
 
 ## the rest of these are mine. thank you stump for making me realize the power
 ## of wc4fb.
-# dream eater guy in viridian city
 replace(romData, 0x191D0, '995423')
+replace(romData, 0x196DF, '995423')
+replace(romData, 0x4851C, '995423')
+replace(romData, 0x495A2, '995423')
+replace(romData, 0x5C4A3, '995423')
+replace(romData, 0x5C7CE, '995423')
+replace(romData, 0x5D179, '995423')
+replace(romData, 0x74AE5, '995423')
 
-key_items = game.shuffle_items()
+key_items = game.shuffle_items(args.flags)
 
 for old, new in key_items.items():
     replace_item(romData,old.address,new.item)

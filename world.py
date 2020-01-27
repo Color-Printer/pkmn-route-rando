@@ -122,14 +122,32 @@ class World:
             if a.visited == False:
                 self.bridgeHelper(a)
 
-    def shuffle_items(self):
+    def shuffle_items(self,flags):
         self.random = random.Random()
+        item_mapping = {}
 
-        self.key_item_locs += self.npc_item_locs
-        self.key_item_locs += self.item_pickups_locs
-        self.key_item_locs += self.hidden_item_locs
-        initialOrder = self.key_item_locs[:]
-        self.random.shuffle(initialOrder)
-        mapping = dict(zip(self.key_item_locs, initialOrder))
+        r_keyItems = False
+        r_npcItems = False
+        r_pickItems = False
+        r_hiddenItems = False
+        for s in flags:
+            pool = []
+            if "K" in s and r_keyItems == False:
+                pool += self.key_item_locs
+                r_keyItems = True
+            if "N" in s and r_npcItems == False:
+                pool += self.npc_item_locs
+                r_npcItems = True
+            if "I" in s and r_pickItems == False:
+                pool += self.item_pickups_locs
+                r_pickItems = True
+            if "H" in s and r_hiddenItems == False:
+                pool += self.hidden_item_locs
+                r_hiddenItems = True
+            initialOrder = pool[:]
+            print(len(pool))
+            self.random.shuffle(initialOrder)
+            mapping = dict(zip(pool, initialOrder))
+            item_mapping.update(mapping)
 
-        return mapping
+        return item_mapping
