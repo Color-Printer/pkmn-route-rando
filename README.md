@@ -7,7 +7,18 @@ Inspired by stump's Pokémon Red/Blue Key Item Randomizer: https://github.com/st
 CURRENTLY MAPPING OUT LOGIC: up to Route 4 past Mt. Moon
 
 ## HOW TO USE
-Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname]" to implement some map changes and randomize _all_ items up until Route 4. There is no logic applied here yet, however. Flags to toggle/separate the pools to be added later. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
+Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize _all_ items up until Route 4. There is no logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
+
+###Flags
+Flags are lists of characters separated by spaces. Currently, invalid flags are ignored unless they make Python yell at you or something.
+Here is the summary of the flags implemented so far. See the Wiki for more details.
+- The following characters shuffle items. They may be grouped together to form pools that are shuffled separately.
+  - **K** - Shuffles all Key Items.
+  - **N** - Shuffles non-key items received from NPCs.
+  - **I** - Shuffles item ball pickups.
+  - **H** - Shuffles hidden items.
+  - For example, using "K I" in your flag set will shuffle Key Items with other Key Items, item ball pickups with other item balls, and leave NPC items and hidden items alone. "KN IH" will shuffle Key Items and NPC items together and item balls and hidden items together, and "K N I H" will shuffle everything in its own pool, and "KNIH" will shuffle all four pools in one large pool.
+  - If you already use a flag in one pool and try to put it in another, it will be ignored. Only the first occurrence of each flag counts.
 
 ## IMPLEMENTED
 - A solver that can attempt to go from point A to point B with a set starting inventory, picking up items along the way
@@ -23,12 +34,12 @@ Don't. It doesn't even randomize everything yet. You can currently, however, run
 - You can no longer hop down a ledge to get back to Pewter City after leaving the backside of the Pewter Museum
 - You can return to Mt. Moon from Cerulean City along Route 4
 - You can no longer use the ledge to the right side of Cerulean Gym to return to the main area of the city from the outside. You must use the Cuttable tree or find another way in
+- Both fossils can be obtained from Mt. Moon
 
 ## Things To Keep In Mind (none of this actually applies yet)
 - Every town has direct access to exactly one Pokemon Center
   - The Mt. Moon and Rock Tunnel Pokemon Centers are left as is...for now
   - This does NOT apply to PokeMarts
-- Both fossils can be obtained from Mt. Moon
 - Flash is available before you have to traverse Rock Tunnel
 - If key items are shuffled with hidden items, you will always be able to get the Itemfinder before picking up any hidden items
 - The back entrances of Pokemon Mansion and the Power Plant lead back to wherever the regular entrance leads
@@ -39,7 +50,6 @@ Don't. It doesn't even randomize everything yet. You can currently, however, run
 - Safari Zone is left intact
 
 ## Things to Implement Later
-- First is key item shuffling
 - An option to start right in Oak's Lab, allowing Red's House to be shuffled with the Pokemon Centers
 - An option to skip the Oak's Parcel sidequest (it and its location will be removed from the pools)
   - Both options above allow Oak's Lab to be shuffled
