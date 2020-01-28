@@ -1,13 +1,14 @@
 import rules
 
 class Area:
-    def __init__(self,name,identifier,mapid):
+    def __init__(self,name,identifier,mapid,warp_add):
         self.name = name
         self.id = identifier
         self.mapid = mapid
         self.exits = []
         self.objects = {}
         self.hiddenItems = {}
+        self.warpAddresses = warp_add
 
     def canUseExit(self,exitNum,items):
         return self.exits[exitNum].canUse(items)
@@ -62,12 +63,14 @@ class Exit:
         return rules.ruleEval(self.requirements,items)
 
 class Warp(Exit):
-    def __init__(self,warp_id,dest_id,dest_warp_id,req="True",extra=[],extra_dest=[]):
+    def __init__(self,home,warp_id,dest_id,dest_warp_id,direction,req="True",extra=[],extra_dest=[]):
         super().__init__(dest_id,req)
+        self.home = home
         self.warp_id = warp_id
         self.extra_warp_id = extra
         self.dest_warp_id = dest_warp_id
         self.extra_dest_warp_id = extra_dest
+        self.direction = direction
 
 class ItemLocation:
     def __init__(self,item,name,req="True",address=0):

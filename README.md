@@ -24,6 +24,8 @@ Here is the summary of the flags implemented so far. See the Wiki for more detai
 - A solver that can attempt to go from point A to point B with a set starting inventory, picking up items along the way
 - An algorithm for finding "bridges" in the map, useful for making sure the player can't find their way to the other side of one-way obstacles
 - Shuffling and mixing of various item pools
+- Warp shuffling
+- No logic has been connected yet to either shuffles
 - Writing patches to a ROM file, including logic fixes and behind-the-scenes fixes to make the replacements work properly
 
 ## Logic Changes From Base Game (these are actually implemented in the patcher)
@@ -50,9 +52,8 @@ Here is the summary of the flags implemented so far. See the Wiki for more detai
 - Safari Zone is left intact
 
 ## Things to Implement Later
-- An option to start right in Oak's Lab, allowing Red's House to be shuffled with the Pokemon Centers
+- An option to start right in Oak's Lab, allowing Red's House to be shuffled as a Pokemon Center, and Oak's Lab to be shuffled in general
 - An option to skip the Oak's Parcel sidequest (it and its location will be removed from the pools)
-  - Both options above allow Oak's Lab to be shuffled
 - An option to allow HMs to be used regardless of badges you have obtained
 - An "I Know Where Hidden Items Are" option that removes the Itemfinder requirement from hidden item logic
 - Fill out this README more, and better

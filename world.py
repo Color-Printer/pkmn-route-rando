@@ -10,21 +10,26 @@ class World:
         self.npc_item_locs = []
         self.item_pickups_locs = []
         self.hidden_item_locs = []
+        self.allWarps = []
+        self.random = random.Random()
 
-    def newArea(self,id,name,map_id):
-        self.areas[id] = Area(name,id,map_id)
+    def newArea(self,id,name,map_id,warp_add):
+        self.areas[id] = Area(name,id,map_id,warp_add)
 
-    def newTown(self,id,name,map_id):
-        self.areas[id] = Town(name,id,map_id)
+    def newTown(self,id,name,map_id,warp_add):
+        self.areas[id] = Town(name,id,map_id,warp_add)
 
-    def newDungeon(self,id,name,map_id):
-        self.areas[id] = Dungeon(name,id,map_id)
+    def newDungeon(self,id,name,map_id,warp_add):
+        self.areas[id] = Dungeon(name,id,map_id,warp_add)
 
     def newExit(self,id,dest_id,req="True"):
         self.areas[id].exits.append(Exit(dest_id,req))
 
-    def newWarp(self,id,w_id,dest_id,dest_w_id,req="True",extra=[],extra_dest=[]):
-        self.areas[id].exits.append(Warp(w_id,dest_id,dest_w_id,req,extra,extra_dest))
+    def newWarp(self,id,w_id,dest_id,dest_w_id,dir,req="True",extra=[],extra_dest=[]):
+        x = Warp(id,w_id,dest_id,dest_w_id,dir,req,extra,extra_dest)
+        self.areas[id].exits.append(x)
+        self.allWarps.append(x)
+
 
     #use this for things that are not actually items, like rescuing mr. fuji
     #or completing silph co
@@ -123,7 +128,6 @@ class World:
                 self.bridgeHelper(a)
 
     def shuffle_items(self,flags):
-        self.random = random.Random()
         item_mapping = {}
 
         r_keyItems = False
@@ -145,9 +149,56 @@ class World:
                 pool += self.hidden_item_locs
                 r_hiddenItems = True
             initialOrder = pool[:]
-            print(len(pool))
             self.random.shuffle(initialOrder)
             mapping = dict(zip(pool, initialOrder))
             item_mapping.update(mapping)
 
         return item_mapping
+
+    def shuffle_warps(self,flags):
+        warp_mapping = {}
+
+        north_exits = []
+        south_exits = []
+        west_exits = []
+        east_exits = []
+        stair_exits = []
+        for w in self.allWarps:
+            if w.direction == "north":
+                north_exits.append(w)
+            elif w.direction == "south":
+                south_exits.append(w)
+            elif w.direction == "east":
+                east_exits.append(w)
+            elif w.direction == "west":
+                west_exits.append(w)
+            elif w.direction == "stairs":
+                stair_exits.append(w)
+        self.random.shuffle(stair_exits)
+        while len(north_exits) != len(south_exits):
+            if len(north_exits) > len(south_exits):
+                south_exits.append(stair_exits.pop())
+            else:
+                north_exits.append(stair_exits.pop())
+        while len(west_exits) != len(east_exits):
+            if len(west_exits) > len(east_exits):
+                east_exits.append(stair_exits.pop())
+            else:
+                west_exits.append(stair_exits.pop())
+        x = int(len(stair_exits)/2)
+        for i in range(x):
+            n = self.random.randint(1,2)
+            if n == 1:
+                north_exits.append(stair_exits.pop())
+                south_exits.append(stair_exits.pop())
+            else:
+                west_exits.append(stair_exits.pop())
+                east_exits.append(stair_exits.pop())
+        self.random.shuffle(north_exits)
+        self.random.shuffle(south_exits)
+        self.random.shuffle(west_exits)
+        self.random.shuffle(east_exits)
+        warp_mapping = dict(zip(north_exits, south_exits))
+        warp_mapping.update(dict(zip(west_exits, east_exits)))
+
+        return warp_mapping

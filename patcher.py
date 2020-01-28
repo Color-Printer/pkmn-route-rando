@@ -7,18 +7,41 @@ class UnrecognizedROM(Exception):
 
 version = ""
 
+def addressShift(addr):
+    if version == "blue" and (addr >= 0x74347 and addr <= 0x7867A):
+        return addr+1
+    else:
+        return addr
+
 def replace(rom, addr, hex):
     # hey did you know the credits saying "BLUE" instead of "RED" shifts
     # everything below it in bank 1D forward in address by one byte?????
-    if version == "blue" and (addr >= 0x74347 and addr <= 0x7867A):
-        addr+=1
+    addr = addressShift(addr)
     bin = binascii.unhexlify(hex)
     rom[addr:addr+len(bin)] = bin
 
 def replace_item(rom, addr, item):
-    if version == "blue" and (addr >= 0x74347 and addr <= 0x7867A):
-            addr+=1
+    addr = addressShift(addr)
     rom[addr] = item.id
+
+def replace_warp(rom, warp_a, warp_b):
+    map_a_addr = addressShift(game.areas[warp_a.home].warpAddresses)
+    map_b_addr = addressShift(game.areas[warp_b.home].warpAddresses)
+    map_a_offset = map_a_addr + (4 * warp_a.warp_id)
+    map_b_offset = map_b_addr + (4 * warp_b.warp_id)
+    rom[map_a_offset+2] = warp_b.warp_id
+    rom[map_a_offset+3] =  game.areas[warp_b.home].mapid
+    rom[map_b_offset+2] = warp_a.warp_id
+    rom[map_b_offset+3] =  game.areas[warp_a.home].mapid
+    for x in warp_a.extra_warp_id:
+        map_a_offset = map_a_addr + (4 * x)
+        rom[map_a_offset+2] = warp_b.warp_id
+        rom[map_a_offset+3] =  game.areas[warp_b.home].mapid
+    for x in warp_b.extra_warp_id:
+        map_b_offset = map_b_addr + (4 * x)
+        rom[map_b_offset+2] = warp_a.warp_id
+        rom[map_b_offset+3] =  game.areas[warp_a.home].mapid
+
 
 parser = argparse.ArgumentParser(description='A key item/warp randomizer for Pokemon Red and Blue.')
 parser.add_argument('romfile', type=argparse.FileType('rb'), help="filename for a valid Pokemon Red or Blue UE ROM.")
@@ -173,10 +196,15 @@ replace(romData, 0x5C7CE, '995423')
 replace(romData, 0x5D179, '995423')
 replace(romData, 0x74AE5, '995423')
 
-key_items = game.shuffle_items(args.flags)
+new_items = game.shuffle_items(args.flags)
 
-for old, new in key_items.items():
+for old, new in new_items.items():
     replace_item(romData,old.address,new.item)
+
+new_warps = game.shuffle_warps(args.flags)
+
+for a, b in new_warps.items():
+    replace_warp(romData,a,b)
 
 # some items ids need to be rewritten again
 romData[0x1d7b9]=romData[0x1d765]
