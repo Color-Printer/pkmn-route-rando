@@ -63,7 +63,7 @@ game.newExit("viridian_city","route_1")
 #newExit("viridian_city","route_22")
 game.newExit("viridian_city","viridian_north","has(POKEDEX) or canCut()")
 game.newWarp("viridian_city",0,"viridian_center",0,"north")
-game.newWarp("viridian_city",1,"viridian_mart",0,"north")
+game.newWarp("viridian_city",1,"viridian_mart",0,"north-debug")
 game.newWarp("viridian_city",2,"viridian_school",0,"north")
 game.newWarp("viridian_city",3,"viridian_house",0,"north")
 game.newNPC("viridian_city",1,"Pokeball Kid")
@@ -87,7 +87,7 @@ game.newNPC("viridian_center",3,"Free Healthcare Kid")
 
 ###Viridian PokeMart###
 game.newArea("viridian_mart","Viridian PokeMart",0x2A,0x1D50C)
-game.newWarp("viridian_mart",0,"viridian_city",1,"south","True",[1],[1])
+game.newWarp("viridian_mart",0,"viridian_city",1,"south-debug","True",[1],[1])
 game.newNPC("viridian_mart",0,"Viridian Shopkeeper",[ItemLocation(OAKS_PARCEL,"Parcel Pickup")])
 game.newNPC("viridian_mart",2,"Antidote Shopper")
 game.newNPC("viridian_mart",3,"Sold-Out Potion Shopper")
@@ -156,14 +156,14 @@ game.newNPC("r2_trade_house",2,"Abra -> Mr. Mime Trader")
 
 ###Viridian Forest South Gate###
 game.newArea("forest_south_gate","Viridian Forest - South Gate",0x32,0x5D66F)
-game.newWarp("forest_south_gate",0,"viridian_forest",3,"north","True",[1],[4])
+game.newWarp("forest_south_gate",1,"viridian_forest",4,"north","True",[0],[3])
 game.newWarp("forest_south_gate",2,"route_2v",5,"south","True",[3],[5])
 game.newNPC("forest_south_gate",1,"Natural Maze Girl")
 game.newNPC("forest_south_gate",2,"Rattata Girl")
 
 ###Viridian Forest North Gate###
 game.newArea("forest_north_gate","Viridian Forest - North Gate",0x2F,0x5D59A)
-game.newWarp("forest_north_gate",0,"route_2p",1,"north","True",[1],[1])
+game.newWarp("forest_north_gate",1,"route_2p",1,"north","True",[0],[1])
 game.newWarp("forest_north_gate",2,"viridian_forest",0,"south","True",[3],[0])
 game.newNPC("forest_north_gate",1,"Look Everywhere Dude")
 game.newNPC("forest_north_gate",2,"Cut Bushes Guy")
@@ -266,7 +266,7 @@ game.newNPC("route_4p",1,"Tripped Over Geodude")
 #Cerulean Side
 game.newArea("route_4c","Route 4 - Pewter Side",0x0F,0x543B4)
 game.newWarp("route_4c",1,"mt_moon_b1f_exit",7,"north")
-#game.newExit("route_4c","cerulean_city")
+game.newExit("route_4c","cerulean_city")
 game.newItemLoc("route_4c",3,"TM 04",TM_04,address=0x543DF)
 game.newHiddenItem("route_4c",0,"Hidden Great Ball",GREAT_BALL,address=0x470A6)
 
@@ -281,9 +281,9 @@ game.newNPC("mt_moon_center",4,"Magikarp Salesman")
 #1F
 game.newDungeon("mt_moon_1f","Mt. Moon - 1F",0x3B,0x49B08)
 game.newWarp("mt_moon_1f",0,"route_4p",1,"south","True",[1],[1])
-game.newWarp("mt_moon_1f",2,"mt_moon_b1f_l",0,"stairs")
-game.newWarp("mt_moon_1f",4,"mt_moon_b1f_backl",3,"stairs")
-game.newWarp("mt_moon_1f",3,"mt_moon_b1f_short",2,"stairs")
+game.newWarp("mt_moon_1f",2,"mt_moon_b1f_l",0,"stairs-dungeon")
+game.newWarp("mt_moon_1f",4,"mt_moon_b1f_backl",3,"stairs-dungeon")
+game.newWarp("mt_moon_1f",3,"mt_moon_b1f_short",2,"stairs-dungeon")
 game.newItemLoc("mt_moon_1f",8,"Potion",POTION,address=0x49B5F)
 game.newItemLoc("mt_moon_1f",9,"Moon Stone",MOON_STONE,address=0x49B66)
 game.newItemLoc("mt_moon_1f",10,"Rare Candy",RARE_CANDY,address=0x49B6D)
@@ -292,38 +292,77 @@ game.newItemLoc("mt_moon_1f",12,"Potion 2",POTION,address=0x49B7B)
 game.newItemLoc("mt_moon_1f",13,"TM 12",TM_12,address=0x49B82)
 #B1F - L-Shaped Corridor
 game.newDungeon("mt_moon_b1f_l","Mt. Moon - B1F - L-Shaped Corridor",0x3C,0x51A4f)
-game.newWarp("mt_moon_b1f_l",0,"mt_moon_1f",2,"stairs")
-game.newWarp("mt_moon_b1f_l",4,"mt_moon_b2f_outside",1,"stairs")
+game.newWarp("mt_moon_b1f_l",0,"mt_moon_1f",2,"stairs-dungeon")
+game.newWarp("mt_moon_b1f_l",4,"mt_moon_b2f_outside",1,"stairs-dungeon")
 #B1F - Backwards-L Corridor
 game.newDungeon("mt_moon_b1f_backl","Mt. Moon - B1F - Backwards-L Corridor",0x3C,0x51A4f)
-game.newWarp("mt_moon_b1f_backl",3,"mt_moon_1f",4,"stairs")
-game.newWarp("mt_moon_b1f_backl",5,"mt_moon_b2f_south",2,"stairs")
+game.newWarp("mt_moon_b1f_backl",3,"mt_moon_1f",4,"stairs-dungeon")
+game.newWarp("mt_moon_b1f_backl",5,"mt_moon_b2f_south",2,"stairs-dungeon")
 #B1F - Short Center Corridor
 game.newDungeon("mt_moon_b1f_short","Mt. Moon - B1F - Short Center Corridor",0x3C,0x51A4f)
-game.newWarp("mt_moon_b1f_short",2,"mt_moon_1f",3,"stairs")
-game.newWarp("mt_moon_b1f_short",1,"mt_moon_b2f_north",0,"stairs")
+game.newWarp("mt_moon_b1f_short",2,"mt_moon_1f",3,"stairs-dungeon")
+game.newWarp("mt_moon_b1f_short",1,"mt_moon_b2f_north",0,"stairs-dungeon")
 #B1F - Exit
 game.newDungeon("mt_moon_b1f_exit","Mt. Moon - B1F - Exit",0x3C,0x51A4f)
-game.newWarp("mt_moon_b1f_exit",6,"mt_moon_b2f_outside",3,"stairs")
+game.newWarp("mt_moon_b1f_exit",6,"mt_moon_b2f_outside",3,"stairs-dungeon")
 game.newWarp("mt_moon_b1f_exit",7,"route_4c",2,"stairs")
 #B2F - South Section
 game.newDungeon("mt_moon_b2f_south","Mt. Moon - B2F - South Section",0x3D,0x49FDD)
-game.newWarp("mt_moon_b2f_south",2,"mt_moon_b1f_backl",5,"stairs")
+game.newWarp("mt_moon_b2f_south",2,"mt_moon_b1f_backl",5,"stairs-dungeon")
 game.newItemLoc("mt_moon_b2f_south",8,"HP Up",HP_UP,address=0x4A029)
 #B2F - North Section
 game.newDungeon("mt_moon_b2f_north","Mt. Moon - B2F - South Section",0x3D,0x49FDD)
-game.newWarp("mt_moon_b2f_north",0,"mt_moon_b1f_short",1,"stairs")
+game.newWarp("mt_moon_b2f_north",0,"mt_moon_b1f_short",1,"stairs-dungeon")
 game.newItemLoc("mt_moon_b2f_north",9,"TM 01",TM_01,address=0x4A030)
 game.newHiddenItem("mt_moon_b2f_north",1,"Hidden Ether",ETHER,address=0x46E5C)
 #B2F - Outside Section
 game.newDungeon("mt_moon_b2f_outside","Mt. Moon - B2F - Outside Section",0x3D,0x49FDD)
-game.newWarp("mt_moon_b2f_outside",1,"mt_moon_b1f_l",4,"stairs")
-game.newWarp("mt_moon_b2f_outside",3,"mt_moon_b1f_exit",6,"stairs")
+game.newWarp("mt_moon_b2f_outside",1,"mt_moon_b1f_l",4,"stairs-dungeon")
+game.newWarp("mt_moon_b2f_outside",3,"mt_moon_b1f_exit",6,"stairs-dungeon")
 game.newKeyItemLoc("mt_moon_b2f_outside",6,"Left Fossil",DOME_FOSSIL,address=0x49ef0)
 game.newKeyItemLoc("mt_moon_b2f_outside",7,"Right Fossil",HELIX_FOSSIL,address=0x49f2b)
 game.newHiddenItem("mt_moon_b2f_outside",0,"Hidden Moon Stone",MOON_STONE,address=0x46E56)
 
+###Cerulean City###
+#Main Area
+game.newTown("cerulean_city","Cerulean City",0x03,0x18788)
+game.newExit("cerulean_city","route_4c")
+#game.newExit("cerulean_city","route_24")
+game.newExit("cerulean_city","cerulean_outskirts","canCut()")
+game.newWarp("cerulean_city",0,"cerulean_trashed_house",0,"north")
+#game.newWarp("cerulean_city",1,"cerulean_trade_house",0,"north")
+#game.newWarp("cerulean_city",2,"cerulean_center",0,"north")
+#game.newWarp("cerulean_city",3,"cerulean_gym",0,"north")
+game.newWarp("cerulean_city",4,"bike_shop",0,"north")
+#game.newWarp("cerulean_city",5,"cerulean_mart",0,"north")
+game.newWarp("cerulean_city",8,"cerulean_badge",1,"north")
+#Outskirts
+game.newArea("cerulean_outskirts","Cerulean City - Outskirts",0x03,0x18788)
+game.newExit("cerulean_outskirts","cerulean_city","canCut()")
+#game.newExit("cerulean_city","route_5")
+#game.newExit("cerulean_city","route_9","canCut()")
+game.newWarp("cerulean_outskirts",7,"cerulean_trashed_house",2,"south")
+#Cerulean Cave Entrance
+game.newArea("cerulean_cave_entrance","Cerulean City - Cave Entrance",0x03,0x18788)
+#game.newExit("cerulean_cave_entrance","route_5","canSurf()")
+#game.newWarp("cerulean_cave_entrance",6,"cerulean_cave_1F",0,"north")
+#Backyard
+game.newArea("cerulean_backyard","Cerulean City - Badge Backyard",0x03,0x18788)
+game.newWarp("cerulean_backyard",9,"cerulean_badge",0,"south")
 
+###Cerulean Trashed House###
+game.newArea("cerulean_trashed_house","Cerulean Trashed House",0x3E,0x1d6c1)
+game.newWarp("cerulean_trashed_house",0,"cerulean_city",0,"south","True,",[1],[0])
+game.newWarp("cerulean_trashed_house",2,"cerulean_outskirts",7,"north")
+
+###Cerulean Badge House###
+game.newArea("cerulean_badge","Cerulean Badge House",0xE6,0x74ec0)
+game.newWarp("cerulean_badge",0,"cerulean_backyard",9,"north")
+game.newWarp("cerulean_badge",1,"cerulean_city",8,"south","True,",[2],[8])
+
+###Bike Shop###
+game.newArea("bike_shop","Bike Shop",0x42,0x1d868)
+game.newWarp("bike_shop",0,"cerulean_city",4,"south","True,",[1],[4])
 
 # for n, a in game.areas.items():
 #     print(a.name + " - " + str(game.canGetToFromStart(a.id)))

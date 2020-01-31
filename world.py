@@ -30,7 +30,6 @@ class World:
         self.areas[id].exits.append(x)
         self.allWarps.append(x)
 
-
     #use this for things that are not actually items, like rescuing mr. fuji
     #or completing silph co
     def newFakeItemLoc(self,id,o_id,name,item,req="True",address=0):

@@ -196,6 +196,11 @@ replace(romData, 0x5C7CE, '995423')
 replace(romData, 0x5D179, '995423')
 replace(romData, 0x74AE5, '995423')
 
+# fix the warp code so that it ALWAYS updates your position whenever you use a warp
+# by silently changing the current tileset to a dungeon tileset
+replace(romData, 0x7B0, 'A63F')
+replace(romData, 0x3FA6, 'CDDA123E07EA67D3C9')
+
 new_items = game.shuffle_items(args.flags)
 
 for old, new in new_items.items():
