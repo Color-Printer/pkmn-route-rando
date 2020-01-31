@@ -9,7 +9,7 @@ CURRENTLY MAPPING OUT LOGIC: up to Route 4 past Mt. Moon
 ## HOW TO USE
 Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize _all_ items up until Route 4. There is no logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
 
-###Flags
+### Flags
 Flags are lists of characters separated by spaces. Currently, invalid flags are ignored unless they make Python yell at you or something.
 Here is the summary of the flags implemented so far. See the Wiki for more details.
 - The following characters shuffle items. They may be grouped together to form pools that are shuffled separately.
