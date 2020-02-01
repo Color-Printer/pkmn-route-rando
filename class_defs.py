@@ -34,7 +34,7 @@ class Area:
             if x.destination == area and x.requirements == "True":
                     return True
         return False
-
+        
     def getAllValidExits(self,items):
         v = []
         for x in self.exits:
@@ -52,6 +52,9 @@ class Town(Area):
     pass
 
 class Dungeon(Area):
+    pass
+
+class PokemonCenter(Area):
     pass
 
 class Exit:

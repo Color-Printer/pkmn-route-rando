@@ -4,10 +4,10 @@ A key item/warp randomizer for Pokemon Red and Blue, in development.
 Inspired by stump's Pokémon Red/Blue Key Item Randomizer: https://github.com/stump/keyrand
 (pieces of the patcher code were shamelessly lifted from there)
 
-CURRENTLY MAPPING OUT LOGIC: up to Route 4 past Mt. Moon
+CURRENTLY MAPPING OUT LOGIC: up to the N/S Underground Path past Route 5
 
 ## HOW TO USE
-Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize _all_ items up until Route 4. There is no logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
+Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize set item groups (see Flags below) up until Route 5. There is no completion logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
 
 ### Flags
 Flags are lists of characters separated by spaces. Currently, invalid flags are ignored unless they make Python yell at you or something.
@@ -25,7 +25,7 @@ Here is the summary of the flags implemented so far. See the Wiki for more detai
 - An algorithm for finding "bridges" in the map, useful for making sure the player can't find their way to the other side of one-way obstacles
 - Shuffling and mixing of various item pools
 - Warp shuffling
-- No logic has been connected yet to either shuffles
+- No logic has been connected yet to either shuffles, with the exception of making sure all locations are physically connected in one group and each town has direct access to exactly one Pokemon Center
 - Writing patches to a ROM file, including logic fixes and behind-the-scenes fixes to make the replacements work properly
 
 ## Logic Changes From Base Game (these are actually implemented in the patcher)
@@ -38,10 +38,12 @@ Here is the summary of the flags implemented so far. See the Wiki for more detai
 - You can no longer use the ledge to the right side of Cerulean Gym to return to the main area of the city from the outside. You must use the Cuttable tree or find another way in
 - Both fossils can be obtained from Mt. Moon
 
-## Things To Keep In Mind (none of this actually applies yet)
+## Things To Keep In Mind
 - Every town has direct access to exactly one Pokemon Center
   - The Mt. Moon and Rock Tunnel Pokemon Centers are left as is...for now
   - This does NOT apply to PokeMarts
+
+## Things To Keep In Mind That Don't Actually Apply Yet
 - Flash is available before you have to traverse Rock Tunnel
 - If key items are shuffled with hidden items, you will always be able to get the Itemfinder before picking up any hidden items
 - The back entrances of Pokemon Mansion and the Power Plant lead back to wherever the regular entrance leads

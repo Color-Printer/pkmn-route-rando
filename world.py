@@ -22,13 +22,16 @@ class World:
     def newDungeon(self,id,name,map_id,warp_add):
         self.areas[id] = Dungeon(name,id,map_id,warp_add)
 
+    def newPokemonCenter(self,id,name,map_id,warp_add):
+        self.areas[id] = PokemonCenter(name,id,map_id,warp_add)
+
     def newExit(self,id,dest_id,req="True"):
         self.areas[id].exits.append(Exit(dest_id,req))
 
     def newWarp(self,id,w_id,dest_id,dest_w_id,dir,req="True",extra=[],extra_dest=[]):
         x = Warp(id,w_id,dest_id,dest_w_id,dir,req,extra,extra_dest)
         self.areas[id].exits.append(x)
-        self.allWarps.append(x)
+        self.allWarps.append((id,w_id,dir,len(self.areas[id].exits)-1))
 
     #use this for things that are not actually items, like rescuing mr. fuji
     #or completing silph co
@@ -126,6 +129,40 @@ class World:
             if a.visited == False:
                 self.bridgeHelper(a)
 
+    def allPhysicallyConnected(self):
+        x = True
+        self.clearVisitedFlags()
+        Q = []
+        self.areas["reds_house_2F"].visited = True
+        Q.append("reds_house_2F")
+        while len(Q) > 0:
+            v = Q.pop()
+            e = self.areas[v].getAllGraphConnections()
+            for w in e:
+                if self.areas[w].visited == False:
+                    self.areas[w].visited = True
+                    Q.append(w)
+        for n, a in self.areas.items():
+            if a.visited == False:
+                x = False
+        return x
+
+    def onePokemonCenter(self,area):
+        pc = 0
+        for x in self.areas[area].exits:
+            if isinstance(self.areas[x.destination],PokemonCenter) and x.requirements == "True":
+                pc += 1
+        if pc == 1:
+            return True
+        else:
+            return False
+
+    def checkPokemonCenters(self):
+        for n, a in self.areas.items():
+            if isinstance(a,Town) and self.onePokemonCenter(n)==False:
+                return False
+        return True
+
     def shuffle_items(self,flags):
         item_mapping = {}
 
@@ -163,15 +200,15 @@ class World:
         east_exits = []
         stair_exits = []
         for w in self.allWarps:
-            if w.direction == "north":
+            if w[2] == "north":
                 north_exits.append(w)
-            elif w.direction == "south":
+            elif w[2] == "south":
                 south_exits.append(w)
-            elif w.direction == "east":
+            elif w[2] == "east":
                 east_exits.append(w)
-            elif w.direction == "west":
+            elif w[2] == "west":
                 west_exits.append(w)
-            elif w.direction == "stairs":
+            elif w[2] == "stairs":
                 stair_exits.append(w)
         self.random.shuffle(stair_exits)
         while len(north_exits) != len(south_exits):
@@ -199,5 +236,13 @@ class World:
         self.random.shuffle(east_exits)
         warp_mapping = dict(zip(north_exits, south_exits))
         warp_mapping.update(dict(zip(west_exits, east_exits)))
+
+        for w1,w2 in warp_mapping.items():
+            self.areas[w1[0]].exits[w1[3]].destination = w2[0]
+            self.areas[w1[0]].exits[w1[3]].dest_id = self.areas[w2[0]].mapid
+            self.areas[w1[0]].exits[w1[3]].dest_warp_id = w2[1]
+            self.areas[w2[0]].exits[w2[3]].destination = w1[0]
+            self.areas[w2[0]].exits[w2[3]].dest_id = self.areas[w1[0]].mapid
+            self.areas[w2[0]].exits[w2[3]].dest_warp_id = w1[1]
 
         return warp_mapping

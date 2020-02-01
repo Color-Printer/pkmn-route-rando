@@ -5,6 +5,9 @@ import argparse
 class UnrecognizedROM(Exception):
     pass
 
+class GenerationError(Exception):
+    pass
+
 version = ""
 
 def addressShift(addr):
@@ -24,7 +27,9 @@ def replace_item(rom, addr, item):
     addr = addressShift(addr)
     rom[addr] = item.id
 
-def replace_warp(rom, warp_a, warp_b):
+def replace_warp(rom, w_a, w_b):
+    warp_a = game.areas[w_a[0]].exits[w_a[3]]
+    warp_b = game.areas[w_b[0]].exits[w_b[3]]
     map_a_addr = addressShift(game.areas[warp_a.home].warpAddresses)
     map_b_addr = addressShift(game.areas[warp_b.home].warpAddresses)
     map_a_offset = map_a_addr + (4 * warp_a.warp_id)
@@ -201,12 +206,27 @@ replace(romData, 0x74AE5, '995423')
 replace(romData, 0x7B0, 'A63F')
 replace(romData, 0x3FA6, 'CDDA123E07EA67D3C9')
 
-new_items = game.shuffle_items(args.flags)
+game = 0
+tries = 0
+
+while True:
+    tries+=1
+    if tries>1000:
+        raise UnrecognizedROM("Too many attempts to generate a valid seed!")
+    del game
+    game = generateGameWorld()
+    new_items = game.shuffle_items(args.flags)
+    new_warps = game.shuffle_warps(args.flags)
+    if not game.allPhysicallyConnected():
+        print("TRY AGAIN - Not all maps connected!")
+        continue
+    if not game.checkPokemonCenters():
+        print("TRY AGAIN - Every town should have direct access to exactly one Pokemon Center!")
+        continue
+    break
 
 for old, new in new_items.items():
     replace_item(romData,old.address,new.item)
-
-new_warps = game.shuffle_warps(args.flags)
 
 for a, b in new_warps.items():
     replace_warp(romData,a,b)
