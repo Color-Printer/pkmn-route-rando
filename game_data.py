@@ -134,7 +134,7 @@ def generateGameWorld():
     game.newArea("route_2ne","Route 2 - Northeast Section",0x0D,0x54024)
     game.newExit("route_2ne","route_2m","canCut()")
     game.newExit("route_2ne","route_2p","canCut()")
-    #game.newWarp("route_2ne",0,"diglett_cave_r2",0,"north")
+    #game.newWarp("route_2ne",0,"diglett_cave_r2",0,"north-dne")
     game.newWarp("route_2ne",2,"r2_trade_house",0,"north")
     #Pewter Side (north)
     game.newArea("route_2p","Route 2 - Pewter Side",0x0D,0x54024)
@@ -266,8 +266,8 @@ def generateGameWorld():
     game.newWarp("route_4p",1,"mt_moon_1f",0,"north")
     game.newNPC("route_4p",1,"Tripped Over Geodude")
     #Cerulean Side
-    game.newArea("route_4c","Route 4 - Pewter Side",0x0F,0x543B4)
-    game.newWarp("route_4c",1,"mt_moon_b1f_exit",7,"north")
+    game.newArea("route_4c","Route 4 - Cerulean Side",0x0F,0x543B4)
+    game.newWarp("route_4c",2,"mt_moon_b1f_exit",7,"north")
     game.newExit("route_4c","cerulean_city")
     game.newItemLoc("route_4c",3,"TM 04",TM_04,address=0x543DF)
     game.newHiddenItem("route_4c",0,"Hidden Great Ball",GREAT_BALL,address=0x470A6)
@@ -349,7 +349,7 @@ def generateGameWorld():
     #Cerulean Cave Entrance
     game.newArea("cerulean_cave_entrance","Cerulean City - Cave Entrance",0x03,0x18788)
     game.newExit("cerulean_cave_entrance","route_24","canSurf()")
-    #game.newWarp("cerulean_cave_entrance",6,"cerulean_cave_1F",0,"north")
+    #game.newWarp("cerulean_cave_entrance",6,"cerulean_cave_1F",0,"north-dne")
     #Backyard
     game.newArea("cerulean_backyard","Cerulean City - Badge Backyard",0x03,0x18788)
     game.newWarp("cerulean_backyard",9,"cerulean_badge",0,"south")
@@ -413,11 +413,16 @@ def generateGameWorld():
     game.key_item_locs.append(game.areas["bill_cottage"].objects[2].itemsHeld[0])
 
     ###Route 5###
+    #Cerulean Side
     game.newArea("route_5c","Route 5 - Cerulean Side",0x10,0x545A5)
     game.newExit("route_5c","cerulean_outskirts")
-    #game.newWarp("route_5c",0,"route_5_gate",3,"south","True",[1],[2])
+    #game.newWarp("route_5c",0,"route_5_gate",3,"south-dne","True",[1],[2])
     game.newWarp("route_5c",3,"route_5_underground",0,"north")
     game.newWarp("route_5c",4,"daycare",0,"north")
+    #Saffron Side
+    #game.newArea("route_5s","Route 5 - Saffron Side",0x10,0x545A5)
+    #game.newExit("route_5s","saffron_city")
+    #game.newWarp("route_5s",2,"route_5_gate",0,"north-dne")
 
     ###Pokemon Daycare###
     game.newArea("daycare","Daycare",0x48,0x5645B)
@@ -426,8 +431,7 @@ def generateGameWorld():
     ###Underground Path North-South###
     #Route 5 Entrance
     game.newArea("route_5_underground","North-South Underground Path - Route 5 Entrance",0x47,0x5D6C3)
-    game.newWarp("route_5_underground",0,"route_5c",3,"south")
-    game.newWarp("route_5_underground",1,"route_5c",3,"south")
+    game.newWarp("route_5_underground",0,"route_5c",3,"south","True",[1],[3])
     game.newWarp("route_5_underground",2,"underground_ns",0,"stairs")
     #North-South Path
     game.newArea("underground_ns","North-South Underground Path",0x77,0x61F2C)
@@ -437,9 +441,168 @@ def generateGameWorld():
     game.newHiddenItem("underground_ns",1,"Hidden X-Special",X_SPECIAL,address=0x47076)
     #Route 6 Entrance
     game.newArea("route_6_underground","North-South Underground Path - Route 6 Entrance",0x4A,0x5D700)
-    #game.newWarp("route_6_underground",0,"route_6v",3,"south")
-    #game.newWarp("route_6_underground",1,"route_6v",3,"south")
+    game.newWarp("route_6_underground",0,"route_6v",3,"south","True",[1],[3])
     game.newWarp("route_6_underground",2,"underground_ns",1,"stairs")
+
+    ###Route 6###
+    #vermilion Side
+    game.newArea("route_6v","Route 6 - Vermilion Side",0x11,0x58024)
+    game.newExit("route_6v","vermilion_city")
+    #game.newWarp("route_6v",2,"route_6_gate",0,"north-dne")
+    game.newWarp("route_6v",3,"route_6_underground",0,"north")
+    #Saffron Side
+    #game.newArea("route_6s","Route 6 - Saffron Side",0x11,0x58024)
+    #game.newExit("route_6s","saffron_city")
+    #game.newWarp("route_6s",0,"route_6_gate",2,"south-dne","True",[1],[2])
+
+    ###Vermilion City###
+    #Main Area
+    game.newArea("vermilion_city","Vermilion City",0x05,0x189BC)
+    game.newExit("vermilion_city","route_6v")
+    #game.newExit("vermilion_city","route_11")
+    game.newExit("vermilion_city","vermilion_corner","canCut() or canSurf()")
+    game.newWarp("vermilion_city",0,"vermilion_center",0,"north")
+    game.newWarp("vermilion_city",1,"pokemon_fan_club",0,"north")
+    game.newWarp("vermilion_city",2,"vermilion_mart",0,"north")
+    game.newWarp("vermilion_city",4,"vermilion_pidgey_house",0,"north")
+    game.newWarp("vermilion_city",5,"ss_anne_dock",0,"south","has(S_S_TICKET)",[6],[0])
+    game.newWarp("vermilion_city",7,"vermilion_trade_house",0,"north")
+    game.newWarp("vermilion_city",8,"vermilion_old_rod_house",0,"north")
+    game.newHiddenItem("vermilion_city",0,"Hidden Max Ether",MAX_ETHER,"canSurf()",address=0x47098)
+    #Gym Area
+    game.newArea("vermilion_corner","Vermilion City - Gym Corner",0x05,0x189BC)
+    game.newExit("vermilion_corner","vermilion_city","canCut() or canSurf()")
+    game.newWarp("vermilion_corner",3,"vermilion_gym",0,"north")
+
+    ###Vermilion Pokemon Center###
+    game.newPokemonCenter("vermilion_center","Vermilion Pokemon Center",0x59,0x5C9AB)
+    game.newWarp("vermilion_center",0,"vermilion_city",0,"south","True",[1],[0])
+
+    ###Pokemon Fan Club###
+    game.newArea("pokemon_fan_club","Pokemon Fan Club",0x5A,0x59C99)
+    game.newWarp("pokemon_fan_club",0,"vermilion_city",1,"south","True",[1],[1])
+    game.newNPC("pokemon_fan_club",5,"Fan Club Chairman",[ItemLocation(BIKE_VOUCHER,"Bike Voucher Gift",address=0x59c39)])
+    game.key_item_locs.append(game.areas["pokemon_fan_club"].objects[5].itemsHeld[0])
+
+    ###Vermilion PokeMart###
+    game.newArea("vermilion_mart","Vermilion PokeMart",0x5B,0x5C9F6)
+    game.newWarp("vermilion_mart",0,"vermilion_city",2,"south","True",[1],[2])
+
+    ###Vermilion Gym###
+    game.newArea("vermilion_gym","Vermilion Gym",0x5C,0x5CC00)
+    game.newWarp("vermilion_gym",0,"vermilion_corner",3,"south","True",[1],[3])
+    game.newNPC("vermilion_gym",1,"Lt. Surge",[ItemLocation(THUNDERBADGE,"Lt. Surge's Badge"),ItemLocation(TM_24,"Lt. Surge's TM",address=0x5CAB8)])
+    game.npc_item_locs.append(game.areas["vermilion_gym"].objects[1].itemsHeld[1])
+
+    ###Vermilion Pidgey House###
+    game.newArea("vermilion_pidgey_house","Vermilion Pidgey House",0x5D,0x1DB22)
+    game.newWarp("vermilion_pidgey_house",0,"vermilion_city",4,"south","True",[1],[4])
+
+    ###Vermilion Trade House###
+    game.newArea("vermilion_trade_house","Vermilion Trade House",0xC4,0x19C27)
+    game.newWarp("vermilion_trade_house",0,"vermilion_city",7,"south","True",[1],[7])
+
+    ###Vermilion Old Rod House###
+    game.newArea("vermilion_old_rod_house","Vermilion Old Rod House",0xA3,0x560D1)
+    game.newWarp("vermilion_old_rod_house",0,"vermilion_city",8,"south","True",[1],[8])
+    game.newNPC("vermilion_old_rod_house",1,"Vermilion Fishing Guru",[ItemLocation(OLD_ROD,"Old Rod Gift",address=0x5608e)])
+    game.key_item_locs.append(game.areas["vermilion_old_rod_house"].objects[1].itemsHeld[0])
+
+    ###Vermilion Dock###
+    game.newDungeon("ss_anne_dock","S.S Anne - Vermilion Dock",0x5E,0x1DCC8)
+    game.newWarp("ss_anne_dock",0,"vermilion_city",5,"north")
+    game.newWarp("ss_anne_dock",0,"ss_anne_1f",1,"south-dungeon")
+
+    ###S.S. Anne###
+    #1F
+    game.newDungeon("ss_anne_1f","S.S Anne - 1F",0x5F,0x61279)
+    game.newWarp("ss_anne_1f",0,"ss_anne_dock",1,"north-dungeon","True",[1],[1])
+    game.newWarp("ss_anne_1f",2,"ss_anne_1f_r1",0,"south-boat")
+    game.newWarp("ss_anne_1f",3,"ss_anne_1f_r2",1,"south-boat")
+    game.newWarp("ss_anne_1f",4,"ss_anne_1f_r3",2,"south-boat")
+    game.newWarp("ss_anne_1f",5,"ss_anne_1f_r4",3,"south-boat")
+    game.newWarp("ss_anne_1f",6,"ss_anne_1f_r5",4,"south-boat")
+    game.newWarp("ss_anne_1f",7,"ss_anne_1f_r6",5,"south-boat")
+    game.newWarp("ss_anne_1f",8,"ss_anne_2f",6,"stairs-dungeon")
+    game.newWarp("ss_anne_1f",9,"ss_anne_b1f",5,"stairs-dungeon")
+    game.newWarp("ss_anne_1f",10,"ss_anne_kitchen",0,"south-dungeon")
+    #1F Rooms
+    game.newDungeon("ss_anne_1f_r1","S.S Anne - 1F Room 1",0x66,0x61A62)
+    game.newWarp("ss_anne_1f_r1",0,"ss_anne_1f",2,"north-boat")
+    game.newDungeon("ss_anne_1f_r2","S.S Anne - 1F Room 2",0x66,0x61A62)
+    game.newWarp("ss_anne_1f_r2",1,"ss_anne_1f",3,"north-boat")
+    game.newDungeon("ss_anne_1f_r3","S.S Anne - 1F Room 3",0x66,0x61A62)
+    game.newWarp("ss_anne_1f_r3",2,"ss_anne_1f",4,"north-boat")
+    game.newDungeon("ss_anne_1f_r4","S.S Anne - 1F Room 4",0x66,0x61A62)
+    game.newWarp("ss_anne_1f_r4",3,"ss_anne_1f",5,"north-boat")
+    game.newDungeon("ss_anne_1f_r5","S.S Anne - 1F Room 5",0x66,0x61A62)
+    game.newWarp("ss_anne_1f_r5",4,"ss_anne_1f",6,"north-boat")
+    game.newItemLoc("ss_anne_1f_r5",10,"TM 08",TM_08,address=0x61AC0)
+    game.newDungeon("ss_anne_1f_r6","S.S Anne - 1F Room 6",0x66,0x61A62)
+    game.newWarp("ss_anne_1f_r6",5,"ss_anne_1f",7,"north-boat")
+    #2F
+    game.newDungeon("ss_anne_2f","S.S Anne - 2F",0x60,0x61516)
+    game.newWarp("ss_anne_2f",0,"ss_anne_2f_r1",0,"north-boat")
+    game.newWarp("ss_anne_2f",1,"ss_anne_2f_r2",2,"north-boat")
+    game.newWarp("ss_anne_2f",2,"ss_anne_2f_r3",4,"north-boat")
+    game.newWarp("ss_anne_2f",3,"ss_anne_2f_r4",6,"north-boat")
+    game.newWarp("ss_anne_2f",4,"ss_anne_2f_r5",8,"north-boat")
+    game.newWarp("ss_anne_2f",5,"ss_anne_2f_r6",10,"north-boat")
+    game.newWarp("ss_anne_2f",6,"ss_anne_1f",8,"stairs-dungeon")
+    game.newWarp("ss_anne_2f",7,"ss_anne_3f",1,"stairs-dungeon")
+    game.newWarp("ss_anne_2f",8,"ss_anne_captain",0,"stairs-dungeon")
+    #2F Rooms
+    game.newDungeon("ss_anne_2f_r1","S.S Anne - 2F Room 1",0x67,0x61C8F)
+    game.newWarp("ss_anne_2f_r1",0,"ss_anne_2f",0,"south-boat","True",[1],[0])
+    game.newDungeon("ss_anne_2f_r2","S.S Anne - 2F Room 2",0x67,0x61C8F)
+    game.newWarp("ss_anne_2f_r2",2,"ss_anne_2f",1,"south-boat","True",[3],[1])
+    game.newItemLoc("ss_anne_2f_r2",6,"Max Ether",MAX_ETHER,address=0x61CED)
+    game.newDungeon("ss_anne_2f_r3","S.S Anne - 2F Room 3",0x67,0x61C8F)
+    game.newWarp("ss_anne_2f_r3",4,"ss_anne_2f",2,"south-boat","True",[5],[2])
+    game.newDungeon("ss_anne_2f_r4","S.S Anne - 2F Room 4",0x67,0x61C8F)
+    game.newWarp("ss_anne_2f_r4",6,"ss_anne_2f",3,"south-boat","True",[7],[3])
+    game.newItemLoc("ss_anne_2f_r4",9,"Rare Candy",RARE_CANDY,address=0x61D00)
+    game.newDungeon("ss_anne_2f_r5","S.S Anne - 2F Room 5",0x67,0x61C8F)
+    game.newWarp("ss_anne_2f_r5",8,"ss_anne_2f",4,"south-boat","True",[9],[4])
+    game.newDungeon("ss_anne_2f_r6","S.S Anne - 2F Room 6",0x67,0x61C8F)
+    game.newWarp("ss_anne_2f_r6",10,"ss_anne_2f",5,"south-boat","True",[11],[5])
+    #B1F
+    game.newDungeon("ss_anne_b1f","S.S Anne - B1F",0x62,0x61634)
+    game.newWarp("ss_anne_b1f",0,"ss_anne_b1f_r5",8,"north-boat")
+    game.newWarp("ss_anne_b1f",1,"ss_anne_b1f_r4",6,"north-boat")
+    game.newWarp("ss_anne_b1f",2,"ss_anne_b1f_r3",4,"north-boat")
+    game.newWarp("ss_anne_b1f",3,"ss_anne_b1f_r2",2,"north-boat")
+    game.newWarp("ss_anne_b1f",4,"ss_anne_b1f_r1",0,"north-boat")
+    game.newWarp("ss_anne_b1f",5,"ss_anne_1f",9,"stairs-dungeon")
+    #B1F Rooms
+    game.newDungeon("ss_anne_b1f_r1","S.S Anne - B1F Room 1",0x68,0x61E77)
+    game.newWarp("ss_anne_b1f_r1",0,"ss_anne_b1f",4,"south-boat","True",[1],[4])
+    game.newDungeon("ss_anne_b1f_r2","S.S Anne - B1F Room 2",0x68,0x61E77)
+    game.newWarp("ss_anne_b1f_r2",2,"ss_anne_b1f",3,"south-boat","True",[3],[3])
+    game.newItemLoc("ss_anne_b1f_r2",10,"TM 44",TM_44,address=0x61EEA)
+    game.newDungeon("ss_anne_b1f_r3","S.S Anne - B1F Room 3",0x68,0x61E77)
+    game.newWarp("ss_anne_b1f_r3",4,"ss_anne_b1f",2,"south-boat","True",[5],[2])
+    game.newItemLoc("ss_anne_b1f_r3",9,"Ether",ETHER,address=0x61EE3)
+    game.newDungeon("ss_anne_b1f_r4","S.S Anne - B1F Room 4",0x68,0x61E77)
+    game.newWarp("ss_anne_b1f_r4",6,"ss_anne_b1f",1,"south-boat","True",[7],[1])
+    game.newDungeon("ss_anne_b1f_r5","S.S Anne - B1F Room 5",0x68,0x61E77)
+    game.newWarp("ss_anne_b1f_r5",8,"ss_anne_b1f",0,"south-boat","True",[9],[0])
+    game.newItemLoc("ss_anne_b1f_r5",11,"Max Potion",MAX_POTION,address=0x61EF1)
+    #3F
+    game.newDungeon("ss_anne_3f","S.S Anne - 3F",0x61,0x4493E)
+    game.newWarp("ss_anne_3f",0,"ss_anne_bow",0,"west-dungeon")
+    game.newWarp("ss_anne_3f",1,"ss_anne_2f",7,"stairs-dungeon")
+    #Kitchen
+    game.newDungeon("ss_anne_kitchen","S.S Anne - Kitchen",0x64,0x6181D)
+    game.newWarp("ss_anne_kitchen",0,"ss_anne_1f",10,"north-dungeon")
+    #Bow
+    game.newDungeon("ss_anne_bow","S.S Anne - Bow",0x63,0x6172D)
+    game.newWarp("ss_anne_bow",0,"ss_anne_3f",0,"east-dungeon","True",[1],[0])
+    #Captain's Room
+    game.newDungeon("ss_anne_captain","S.S Anne - Captain's Room",0x65,0x61948)
+    game.newWarp("ss_anne_captain",0,"ss_anne_2f",8,"stairs-dungeon")
+    game.newNPC("ss_anne_captain",1,"S.S. Anne Captain",[ItemLocation(CUT,"Cut HM Gift",address=0x618c3)])
+    game.key_item_locs.append(game.areas["ss_anne_captain"].objects[1].itemsHeld[0])
 
     return game
     # for n, a in game.areas.items():

@@ -4,7 +4,7 @@ A key item/warp randomizer for Pokemon Red and Blue, in development.
 Inspired by stump's Pokémon Red/Blue Key Item Randomizer: https://github.com/stump/keyrand
 (pieces of the patcher code were shamelessly lifted from there)
 
-CURRENTLY MAPPING OUT LOGIC: up to the N/S Underground Path past Route 5
+CURRENTLY MAPPING OUT LOGIC: up to S.S. Anne
 
 ## HOW TO USE
 Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize set item groups (see Flags below) up until Route 5. There is no completion logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
