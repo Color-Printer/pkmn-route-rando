@@ -50,7 +50,9 @@ def replace_warp(rom, w_a, w_b):
 
 parser = argparse.ArgumentParser(description='A key item/warp randomizer for Pokemon Red and Blue.')
 parser.add_argument('romfile', type=argparse.FileType('rb'), help="filename for a valid Pokemon Red or Blue UE ROM.")
-parser.add_argument('flags', nargs='*', default=["K"], help="flags for randomization. see documentation for details.")
+parser.add_argument('--items', dest='item_flags', nargs='*', default=["K"], help="Shuffle items into different pools. See documentation for details.")
+parser.add_argument('--warps', dest='warps_r', action='store_true', help="Shuffle warps.")
+parser.add_argument('--dungeons', dest='dungeons_r', action='store_true', help="Breaks up most dungeon and multi-floor buildings when shuffling warps.")
 args = parser.parse_args()
 
 with args.romfile as romFile:
@@ -215,8 +217,9 @@ while True:
         raise UnrecognizedROM("Too many attempts to generate a valid seed!")
     del game
     game = generateGameWorld()
-    new_items = game.shuffle_items(args.flags)
-    new_warps = game.shuffle_warps(args.flags)
+    new_items = game.shuffle_items(args.item_flags)
+    if args.warps_r == True:
+        new_warps = game.shuffle_warps(args)
     if not game.allPhysicallyConnected():
         print("TRY AGAIN - Not all maps connected!")
         continue
@@ -228,8 +231,9 @@ while True:
 for old, new in new_items.items():
     replace_item(romData,old.address,new.item)
 
-for a, b in new_warps.items():
-    replace_warp(romData,a,b)
+if args.warps_r == True:
+    for a, b in new_warps.items():
+        replace_warp(romData,a,b)
 
 # some items ids need to be rewritten again
 romData[0x1d7b9]=romData[0x1d765]

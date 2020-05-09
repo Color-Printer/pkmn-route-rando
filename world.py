@@ -200,15 +200,15 @@ class World:
         east_exits = []
         stair_exits = []
         for w in self.allWarps:
-            if w[2] == "north":
+            if w[2] == "north" or (w[2] == "north-dungeon" and flags.dungeons_r == True):
                 north_exits.append(w)
-            elif w[2] == "south":
+            elif w[2] == "south" or (w[2] == "south-dungeon" and flags.dungeons_r == True):
                 south_exits.append(w)
-            elif w[2] == "east":
+            elif w[2] == "east" or (w[2] == "east-dungeon" and flags.dungeons_r == True):
                 east_exits.append(w)
-            elif w[2] == "west":
+            elif w[2] == "west" or (w[2] == "west-dungeon" and flags.dungeons_r == True):
                 west_exits.append(w)
-            elif w[2] == "stairs":
+            elif w[2] == "stairs" or (w[2] == "stairs-dungeon" and flags.dungeons_r == True):
                 stair_exits.append(w)
         self.random.shuffle(stair_exits)
         while len(north_exits) != len(south_exits):
