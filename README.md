@@ -10,15 +10,15 @@ CURRENTLY MAPPING OUT LOGIC: up to S.S. Anne
 Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize items and warps up to Vermillion City and the S.S. Anne. There is no completion logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
 
 ### Flags
-- --items [item flags] - Shuffles items. Item flags are lists of characters separated by spaces. Invalid flags are ignored unless they make Python yell at you or something. See the Wiki for more details.
+- **--items [item flags]** - Shuffles items. Item flags are lists of characters separated by spaces. Invalid flags are ignored unless they make Python yell at you or something. See the Wiki for more details.
   - **K** - Shuffles all Key Items.
   - **N** - Shuffles non-key items received from NPCs.
   - **I** - Shuffles item ball pickups.
   - **H** - Shuffles hidden items.
   - For example, using "K I" in your flag set will shuffle Key Items with other Key Items, item ball pickups with other item balls, and leave NPC items and hidden items alone. "KN IH" will shuffle Key Items and NPC items together and item balls and hidden items together, and "K N I H" will shuffle everything in its own pool, and "KNIH" will shuffle all four pools in one large pool.
   - If you already use a flag in one pool and try to put it in another, it will be ignored. Only the first occurrence of each flag counts.
-- --warps - Shuffles warps.
-- --dungeons - Breaks up most dungeon and multi-floor buildings when shuffling warps. Does nothing if --warps is not active.
+- **--warps** - Shuffles warps.
+- **--dungeons** - Breaks up most dungeon and multi-floor buildings when shuffling warps. Does nothing if --warps is not active.
 
 ## IMPLEMENTED
 - A solver that can attempt to go from point A to point B with a set starting inventory, picking up items along the way
