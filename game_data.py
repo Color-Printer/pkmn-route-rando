@@ -134,7 +134,7 @@ def generateGameWorld():
     game.newArea("route_2ne","Route 2 - Northeast Section",0x0D,0x54024)
     game.newExit("route_2ne","route_2m","canCut()")
     game.newExit("route_2ne","route_2p","canCut()")
-    #game.newWarp("route_2ne",0,"diglett_cave_r2",0,"north-dne")
+    game.newWarp("route_2ne",0,"diglett_cave_r2",0,"north")
     game.newWarp("route_2ne",2,"r2_trade_house",0,"north")
     #Pewter Side (north)
     game.newArea("route_2p","Route 2 - Pewter Side",0x0D,0x54024)
@@ -205,11 +205,11 @@ def generateGameWorld():
     #1F
     game.newArea("museum_1f","Pewter Museum - 1F",0x34,0x5C2C3)
     game.newWarp("museum_1f",0,"pewter_city",0,"south","True",[1],[0])
-    game.newWarp("museum_1f",4,"museum_2f",0,"stairs")
+    game.newWarp("museum_1f",4,"museum_2f",0,"stairs-dungeon")
     game.newNPC("museum_1f",2,"Museum Patron")
     #2F
     game.newArea("museum_2f","Pewter Museum - 2F",0x35,0x5C34D)
-    game.newWarp("museum_2f",0,"museum_1f",4,"stairs")
+    game.newWarp("museum_2f",0,"museum_1f",4,"stairs-dungeon")
     game.newNPC("museum_2f",1,"Moon Stone Skeptic")
     game.newNPC("museum_2f",2,"Lunar Landing Man")
     game.newNPC("museum_2f",3,"Space Exhibit Guide")
@@ -342,7 +342,7 @@ def generateGameWorld():
     game.newArea("cerulean_outskirts","Cerulean City - Outskirts",0x03,0x18788)
     game.newExit("cerulean_outskirts","cerulean_city","canCut()")
     game.newExit("cerulean_outskirts","route_5c")
-    #game.newExit("cerulean_outskirts","route_9","canCut()")
+    game.newExit("cerulean_outskirts","route_9","canCut()")
     game.newWarp("cerulean_outskirts",7,"cerulean_trashed_house",2,"south")
     game.newNPC("cerulean_outskirts",2,"Rocket Grunt Thief",[ItemLocation(TM_28,"Stolen Dig TM",address=0x196B5)])
     game.npc_item_locs.append(game.areas["cerulean_outskirts"].objects[2].itemsHeld[0])
@@ -432,17 +432,17 @@ def generateGameWorld():
     #Route 5 Entrance
     game.newArea("route_5_underground","North-South Underground Path - Route 5 Entrance",0x47,0x5D6C3)
     game.newWarp("route_5_underground",0,"route_5c",3,"south","True",[1],[3])
-    game.newWarp("route_5_underground",2,"underground_ns",0,"stairs")
+    game.newWarp("route_5_underground",2,"underground_ns",0,"stairs-dungeon")
     #North-South Path
     game.newArea("underground_ns","North-South Underground Path",0x77,0x61F2C)
-    game.newWarp("underground_ns",0,"route_5_underground",2,"stairs")
-    game.newWarp("underground_ns",1,"route_6_underground",2,"stairs")
+    game.newWarp("underground_ns",0,"route_5_underground",2,"stairs-dungeon")
+    game.newWarp("underground_ns",1,"route_6_underground",2,"stairs-dungeon")
     game.newHiddenItem("underground_ns",0,"Hidden Full Restore",FULL_RESTORE,address=0x47070)
     game.newHiddenItem("underground_ns",1,"Hidden X-Special",X_SPECIAL,address=0x47076)
     #Route 6 Entrance
     game.newArea("route_6_underground","North-South Underground Path - Route 6 Entrance",0x4A,0x5D700)
     game.newWarp("route_6_underground",0,"route_6v",3,"south","True",[1],[3])
-    game.newWarp("route_6_underground",2,"underground_ns",1,"stairs")
+    game.newWarp("route_6_underground",2,"underground_ns",1,"stairs-dungeon")
 
     ###Route 6###
     #vermilion Side
@@ -459,7 +459,7 @@ def generateGameWorld():
     #Main Area
     game.newArea("vermilion_city","Vermilion City",0x05,0x189BC)
     game.newExit("vermilion_city","route_6v")
-    #game.newExit("vermilion_city","route_11")
+    game.newExit("vermilion_city","route_11")
     game.newExit("vermilion_city","vermilion_corner","canCut() or canSurf()")
     game.newWarp("vermilion_city",0,"vermilion_center",0,"north")
     game.newWarp("vermilion_city",1,"pokemon_fan_club",0,"north")
@@ -588,6 +588,7 @@ def generateGameWorld():
     game.newDungeon("ss_anne_b1f_r5","S.S Anne - B1F Room 5",0x68,0x61E77)
     game.newWarp("ss_anne_b1f_r5",8,"ss_anne_b1f",0,"south-boat","True",[9],[0])
     game.newItemLoc("ss_anne_b1f_r5",11,"Max Potion",MAX_POTION,address=0x61EF1)
+    game.newHiddenItem("ss_anne_b1f_r1",0,"Hidden Hyper Potion in Room",HYPER_POTION,"True",address=0x46E97)
     #3F
     game.newDungeon("ss_anne_3f","S.S Anne - 3F",0x61,0x4493E)
     game.newWarp("ss_anne_3f",0,"ss_anne_bow",0,"west-dungeon")
@@ -595,6 +596,7 @@ def generateGameWorld():
     #Kitchen
     game.newDungeon("ss_anne_kitchen","S.S Anne - Kitchen",0x64,0x6181D)
     game.newWarp("ss_anne_kitchen",0,"ss_anne_1f",10,"north-dungeon")
+    game.newHiddenItem("ss_anne_kitchen",0,"Hidden Great Ball in Kitchen",GREAT_BALL,"True",address=0x46E90)
     #Bow
     game.newDungeon("ss_anne_bow","S.S Anne - Bow",0x63,0x6172D)
     game.newWarp("ss_anne_bow",0,"ss_anne_3f",0,"east-dungeon","True",[1],[0])
@@ -603,6 +605,106 @@ def generateGameWorld():
     game.newWarp("ss_anne_captain",0,"ss_anne_2f",8,"stairs-dungeon")
     game.newNPC("ss_anne_captain",1,"S.S. Anne Captain",[ItemLocation(CUT,"Cut HM Gift",address=0x618c3)])
     game.key_item_locs.append(game.areas["ss_anne_captain"].objects[1].itemsHeld[0])
+
+    ###Route 11###
+    #Vermillion Side
+    game.newArea("route_11","Route 11",0x16,0x584e2)
+    game.newExit("route_11","vermilion_city")
+    game.newWarp("route_11",4,"diglett_cave_r11",0,"north")
+    game.newWarp("route_11",0,"route_11_gate_1f",0,"east","True",[1],[1])
+    game.newHiddenItem("route_11",0,"Hidden Escape Rope",ESCAPE_ROPE,"True",address=0x4703C)
+    #Route 12 Side
+    game.newArea("route_11e","Route 11 - Route 12 Connection",0x16,0x584e2)
+    game.newWarp("route_11e",2,"route_11_gate_1f",2,"west","True",[3],[3])
+    #game.newExit("route_11e","route_12")
+
+    ###Route 11###
+    #1F
+    game.newArea("route_11_gate_1f","Route 11 Gate - 1F",0x54,0x49418)
+    game.newWarp("route_11_gate_1f",0,"route_11",0,"west","True",[1],[1])
+    game.newWarp("route_11_gate_1f",2,"route_11e",2,"east","True",[3],[3])
+    game.newWarp("route_11_gate_1f",4,"route_11_gate_2f",0,"stairs-dungeon")
+    #2F
+    game.newArea("route_11_gate_2f","Route 11 Gate - 2F",0x56,0x494dc)
+    game.newWarp("route_11_gate_2f",0,"route_11_gate_1f",4,"stairs-dungeon")
+    game.newNPC("route_11_gate_2f",2,"Itemfinder Aide",[ItemLocation(ITEMFINDER,"30 Pokemon Reward",address=0x49478)])
+    game.key_item_locs.append(game.areas["route_11_gate_2f"].objects[2].itemsHeld[0])
+
+    ###Diglett's Cave###
+    #Vermillion Side (Route 11)
+    game.newDungeon("diglett_cave_r11","Diglett's Cave - Route 11 Entrance",0x55,0x1e5cc)
+    game.newWarp("diglett_cave_r11",0,"route_11",4,"south","True",[1],[4])
+    game.newWarp("diglett_cave_r11",2,"diglett_cave_path",1,"stairs-dungeon")
+    #Cave Path
+    game.newDungeon("diglett_cave_path","Diglett's Cave - Cave Path",0xC5,0x61f74)
+    game.newWarp("diglett_cave_path",0,"diglett_cave_r2",2,"stairs-dungeon")
+    game.newWarp("diglett_cave_path",1,"diglett_cave_r11",2,"stairs-dungeon")
+    #Pewter Side (Route 2)
+    game.newDungeon("diglett_cave_r2","Diglett's Cave - Route 2 Entrance",0x2E,0x1dec1)
+    game.newWarp("diglett_cave_r2",0,"route_2ne",0,"south","True",[1],[0])
+    game.newWarp("diglett_cave_r2",2,"diglett_cave_path",0,"stairs-dungeon")
+
+    ###Route 9###
+    game.newArea("route_9","Route 9",0x14,0x546aa)
+    game.newExit("route_9","cerulean_outskirts","canCut()")
+    game.newExit("route_9","route_10n")
+    game.newItemLoc("route_9",10,"TM 30",TM_30,address=0x546fd)
+    game.newHiddenItem("route_9",0,"Hidden Ether",ETHER,"True",address=0x46e7d)
+
+    ###Route 10###
+    #North Side
+    game.newArea("route_10n","Route 10 - North",0x15,0x582f8)
+    game.newExit("route_10n","route_9")
+    game.newExit("route_10n","route_10pp","canSurf()")
+    game.newWarp("route_10n",0,"route_10_center",0,"north-no-touch")
+    game.newWarp("route_10n",1,"rock_tunnel_1f_en",0,"north")
+    game.newHiddenItem("route_10n",0,"Hidden Super Potion",SUPER_POTION,"canCut()",address=0x46e9e)
+    #Power Plant entrance
+    game.newArea("route_10pp","Route 10 - Power Plant Entrance",0x15,0x582f8)
+    game.newExit("route_10pp","route_10n","canSurf()")
+    game.newWarp("route_10pp",3,"power_plant",0,"north")
+    #South Side
+    game.newArea("route_10s","Route 10 - South",0x15,0x582f8)
+    #game.newExit("route_10s","lavender_town")
+    game.newWarp("route_10s",2,"rock_tunnel_1f_ex",2,"north")
+    game.newHiddenItem("route_10s",0,"Hidden Max Ether",MAX_ETHER,"True",address=0x46ea4)
+
+    ###Rock Tunnel Pokemon Center###
+    game.newPokemonCenter("route_10_center","Rock Tunnel Pokemon Center",0x51,0x493d6)
+    game.newWarp("route_10_center",0,"route_10n",0,"south-no-touch","True",[1],[0])
+
+    ###Rock Tunnel###
+    #1F - Entrance
+    game.newDungeon("rock_tunnel_1f_en","Rock Tunnel 1F - Entrance",0x52,0x445f8)
+    game.newWarp("rock_tunnel_1f_en",0,"route_10n",1,"stairs","canFlash()")
+    game.newWarp("rock_tunnel_1f_en",4,"rock_tunnel_b1f_e",0,"stairs-dungeon","canFlash()")
+    #1F - Middle
+    game.newDungeon("rock_tunnel_1f_mid","Rock Tunnel 1F - Middle",0x52,0x445f8)
+    game.newWarp("rock_tunnel_1f_mid",5,"rock_tunnel_b1f_e",1,"stairs-dungeon","canFlash()")
+    game.newWarp("rock_tunnel_1f_mid",6,"rock_tunnel_b1f_w",2,"stairs-dungeon","canFlash()")
+    #1F - Exit
+    game.newDungeon("rock_tunnel_1f_ex","Rock Tunnel 1F - Exit",0x52,0x445f8)
+    game.newWarp("rock_tunnel_1f_ex",7,"rock_tunnel_b1f_e",3,"stairs-dungeon","canFlash()")
+    game.newWarp("rock_tunnel_1f_ex",2,"route_10s",2,"stairs","canFlash()")
+    #B1F - West
+    game.newDungeon("rock_tunnel_b1f_w","Rock Tunnel B1F - West",0xE8,0x4613f)
+    game.newWarp("rock_tunnel_b1f_w",2,"rock_tunnel_1f_mid",6,"stairs-dungeon","canFlash()")
+    game.newWarp("rock_tunnel_b1f_w",3,"rock_tunnel_1f_ex",7,"stairs-dungeon","canFlash()")
+    #B1F - East
+    game.newDungeon("rock_tunnel_b1f_e","Rock Tunnel B1F - East",0xE8,0x4613f)
+    game.newWarp("rock_tunnel_b1f_e",0,"rock_tunnel_1f_en",4,"stairs-dungeon","canFlash()")
+    game.newWarp("rock_tunnel_b1f_e",1,"rock_tunnel_1f_mid",5,"stairs-dungeon","canFlash()")
+
+    ###Power Plant###
+    game.newDungeon("power_plant","Power Plant",0x52,0x445f8)
+    game.newWarp("power_plant",0,"route_10pp",3,"south","True",[1,2],[3,3])
+    game.newItemLoc("power_plant",10,"Carbos",CARBOS,address=0x1e41d)
+    game.newItemLoc("power_plant",11,"HP Up",HP_UP,address=0x1e424)
+    game.newItemLoc("power_plant",12,"Rare Candy",RARE_CANDY,address=0x1e42b)
+    game.newItemLoc("power_plant",13,"TM 25",TM_25,address=0x1e432)
+    game.newItemLoc("power_plant",14,"TM 33",TM_33,address=0x1e439)
+    game.newHiddenItem("power_plant",1,"Hidden Max Elixer",MAX_ELIXER,"True",address=0x46f12)
+    game.newHiddenItem("power_plant",2,"Hidden PP Up",PP_UP,"True",address=0x46f18)
 
     return game
     # for n, a in game.areas.items():
