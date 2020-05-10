@@ -10,7 +10,7 @@ CURRENTLY MAPPING OUT LOGIC: up through Rock Tunnel
 Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize items and warps up to Vermillion City and the S.S. Anne. There is no completion logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
 
 ### Flags
-- **--items [item flags]** - Shuffles items. Item flags are lists of characters separated by spaces. Invalid flags are ignored unless they make Python yell at you or something. See the Wiki for more details.
+- **--items [item flags]** - Shuffles items. Item flags are lists of characters separated by spaces. Invalid flags are ignored unless they make Python yell at you or something. See [the Wiki](https://github.com/Color-Printer/pkmn-route-rando/wiki/Flags) for more details.
   - **K** - Shuffles all Key Items.
   - **N** - Shuffles non-key items received from NPCs.
   - **I** - Shuffles item ball pickups.
