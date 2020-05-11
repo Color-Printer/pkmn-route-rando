@@ -209,6 +209,13 @@ replace(romData, 0x74AE5, '995423')
 replace(romData, 0x7B0, 'A63F')
 replace(romData, 0x3FA6, 'CDDA123E07EA67D3C9')
 
+# fix rock tunnel not clearing darkness when you leave.
+replace(romData, 0x79C, '09')
+# fix rock tunnel so both floors get darkness.
+replace(romData, 0x75F, 'C3AF3F00')
+replace(romData, 0x799, 'C3BF3F00')
+replace(romData, 0x3FAF, 'FE522809F08BFEE82803C36B07C36307CB8EF08BFE522809F08BFEE82803C3A607C3AA07')
+
 game = 0
 tries = 0
 

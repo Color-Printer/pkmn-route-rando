@@ -457,7 +457,7 @@ def generateGameWorld():
 
     ###Vermilion City###
     #Main Area
-    game.newArea("vermilion_city","Vermilion City",0x05,0x189BC)
+    game.newTown("vermilion_city","Vermilion City",0x05,0x189BC)
     game.newExit("vermilion_city","route_6v")
     game.newExit("vermilion_city","route_11")
     game.newExit("vermilion_city","vermilion_corner","canCut() or canSurf()")
@@ -696,7 +696,7 @@ def generateGameWorld():
     game.newWarp("rock_tunnel_b1f_e",1,"rock_tunnel_1f_mid",5,"stairs-dungeon","canFlash()")
 
     ###Power Plant###
-    game.newDungeon("power_plant","Power Plant",0x52,0x445f8)
+    game.newDungeon("power_plant","Power Plant",0x53,0x1e3c1)
     game.newWarp("power_plant",0,"route_10pp",3,"south","True",[1,2],[3,3])
     game.newItemLoc("power_plant",10,"Carbos",CARBOS,address=0x1e41d)
     game.newItemLoc("power_plant",11,"HP Up",HP_UP,address=0x1e424)
