@@ -55,6 +55,7 @@ parser.add_argument('--seed', dest='seed', type=int, help="filename for a valid 
 parser.add_argument('--items', dest='item_flags', nargs='*', default=["K"], help="Shuffle items into different pools. See documentation for details.")
 parser.add_argument('--warps', dest='warps_r', action='store_true', help="Shuffle warps.")
 parser.add_argument('--dungeons', dest='dungeons_r', action='store_true', help="Breaks up most dungeon and multi-floor buildings when shuffling warps.")
+parser.add_argument('--freehms', dest='freehms', action='store_true', help="Removes badge requirements from HMs.")
 args = parser.parse_args()
 
 with args.romfile as romFile:
@@ -220,6 +221,9 @@ replace(romData, 0x75F, 'C3AF3F00')
 replace(romData, 0x799, 'C3BF3F00')
 replace(romData, 0x3FAF, 'FE522809F08BFEE82803C36B07C36307CB8EF08BFE522809F08BFEE82803C3A607C3AA07')
 
+if(args.freehms == True):
+    replace(romData, 0x13178, "3EFF00")
+
 game = 0
 tries = 0
 
@@ -229,6 +233,8 @@ while True:
         raise UnrecognizedROM("Too many attempts to generate a valid seed!")
     del game
     game = generateGameWorld(r)
+    if(args.freehms == True):
+        game.inventory.add("free_hms")
     new_items = game.shuffle_items(args.item_flags)
     if args.warps_r == True:
         new_warps = game.shuffle_warps(args)

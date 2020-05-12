@@ -9,16 +9,16 @@ def has(item,inv):
     return item in inv
 
 def canCut(inv):
-    return has(CUT,inv) and has(CASCADEBADGE,inv)
+    return has(CUT,inv) and (has(CASCADEBADGE,inv) or has("free_hms",inv))
 
 def canSurf(inv):
-    return has(SURF,inv) and has(SOULBADGE,inv)
+    return has(SURF,inv) and (has(SOULBADGE,inv) or has("free_hms",inv)) and canFishGood(inv)
 
 def canStrength(inv):
-    return has(STRENGTH,inv) and has(RAINBOWBADGE,inv)
+    return has(STRENGTH,inv) and (has(RAINBOWBADGE,inv) or has("free_hms",inv))
 
 def canFlash(inv):
-    return has(FLASH,inv) and has(BOULDERBADGE,inv)
+    return has(FLASH,inv) and (has(BOULDERBADGE,inv) or has("free_hms",inv))
 
 def firstSevenBadges(inv):
     return has(BOULDERBADGE,inv) and has(CASCADEBADGE,inv) and has(THUNDERBADGE,inv) and \
@@ -26,4 +26,7 @@ def firstSevenBadges(inv):
            has(VOLCANOBADGE,inv)
 
 def allBadges(inv):
-    return sevenBadges(inv) and has(EARTHBADGE,inv)
+    return firstSevenBadges(inv) and has(EARTHBADGE,inv)
+
+def canFishGood(inv):
+    return has(GOOD_ROD,inv) or has(SUPER_ROD,inv)
