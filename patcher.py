@@ -1,6 +1,7 @@
 import binascii
 from game_data import *
 import argparse
+import random
 
 class UnrecognizedROM(Exception):
     pass
@@ -50,6 +51,7 @@ def replace_warp(rom, w_a, w_b):
 
 parser = argparse.ArgumentParser(description='A key item/warp randomizer for Pokemon Red and Blue.')
 parser.add_argument('romfile', type=argparse.FileType('rb'), help="filename for a valid Pokemon Red or Blue UE ROM.")
+parser.add_argument('--seed', dest='seed', type=int, help="filename for a valid Pokemon Red or Blue UE ROM.")
 parser.add_argument('--items', dest='item_flags', nargs='*', default=["K"], help="Shuffle items into different pools. See documentation for details.")
 parser.add_argument('--warps', dest='warps_r', action='store_true', help="Shuffle warps.")
 parser.add_argument('--dungeons', dest='dungeons_r', action='store_true', help="Breaks up most dungeon and multi-floor buildings when shuffling warps.")
@@ -68,6 +70,8 @@ if romData[0x14E] == 0x91:
     version = "red"
 else:
     version = "blue"
+
+r = random.Random(args.seed)
 
 ##########################################################################
 # First, it's patch time!!!! Let's set up some patches necessary for the #
@@ -224,7 +228,7 @@ while True:
     if tries>100000:
         raise UnrecognizedROM("Too many attempts to generate a valid seed!")
     del game
-    game = generateGameWorld()
+    game = generateGameWorld(r)
     new_items = game.shuffle_items(args.item_flags)
     if args.warps_r == True:
         new_warps = game.shuffle_warps(args)

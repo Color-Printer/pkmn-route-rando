@@ -2,7 +2,7 @@ from class_defs import *
 import random
 
 class World:
-    def __init__(self):
+    def __init__(self,seed):
         self.areas = {}
         self.inventory = set()
         self.bridge_time = 0
@@ -11,7 +11,7 @@ class World:
         self.item_pickups_locs = []
         self.hidden_item_locs = []
         self.allWarps = []
-        self.random = random.Random()
+        self.random = seed
 
     def newArea(self,id,name,map_id,warp_add):
         self.areas[id] = Area(name,id,map_id,warp_add)

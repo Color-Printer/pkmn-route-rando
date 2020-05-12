@@ -1,9 +1,9 @@
 from world import *
 from items import *
 
-def generateGameWorld():
+def generateGameWorld(seed):
 
-    game = World()
+    game = World(seed)
 
     ##########################################IMPORTANT NOTES##########################################
     # - NPCs that will never be randomized *and* don't give items are not listed here.
