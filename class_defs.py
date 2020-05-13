@@ -34,7 +34,7 @@ class Area:
             if x.destination == area and x.requirements == "True":
                     return True
         return False
-        
+
     def getAllValidExits(self,items):
         v = []
         for x in self.exits:
@@ -97,7 +97,7 @@ class ItemLocation:
 
 class HiddenItem(ItemLocation):
     def canAccess(self,items):
-        return rules.ruleEval(self.requirements + " and has('itemfinder')",items)
+        return rules.ruleEval(self.requirements + " and (has(ITEMFINDER) or has('know_hidden'))",items)
 
 class NPC:
     def __init__(self,name,items=[],req="True"):

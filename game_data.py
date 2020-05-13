@@ -76,10 +76,10 @@ def generateGameWorld(seed):
     game.newHiddenItem("viridian_city",0,"Hidden Potion on Tree",POTION,address=0x46F8F)
     #Above old man
     game.newArea("viridian_north","Viridian City - North Part",0x01,0x18386)
-    game.newExit("viridian_north","viridian_city","has(POKEDEX) or canCut()")
+    game.newExit("viridian_north","viridian_city","has(POKEDEX) or canCut() or has('open_old_man')")
     game.newExit("viridian_north","route_2v")
     game.newNPC("viridian_north",2,"Viridian Gym Bystander")
-    game.newWarp("viridian_north",4,"viridian_gym",0,"north","firstSevenBadges()")
+    game.newWarp("viridian_north",4,"viridian_gym",0,"north","firstSevenBadges() or has('open_gym8')")
 
     ###Viridian Pokemon Center###
     game.newPokemonCenter("viridian_center","Viridian Pokemon Center",0x29,0x44279)

@@ -56,7 +56,15 @@ parser.add_argument('--items', dest='item_flags', nargs='*', default=["K"], help
 parser.add_argument('--warps', dest='warps_r', action='store_true', help="Shuffle warps.")
 parser.add_argument('--dungeons', dest='dungeons_r', action='store_true', help="Breaks up most dungeon and multi-floor buildings when shuffling warps.")
 parser.add_argument('--freehms', dest='freehms', action='store_true', help="Removes badge requirements from HMs.")
+parser.add_argument('--knowhidden', dest='knowhidden', action='store_true', help='"I Know Where Hidden Items Are!" Itemfinder not required in logic to find hidden items.')
+parser.add_argument('--open', dest='open', action='store_true', help='Enables all the "open" flags.')
+parser.add_argument('--openoldman', dest='open_old_man', action='store_true', help='The old man in Viridian City no longer blocks the way.')
+parser.add_argument('--opengym8', dest='open_gym8', action='store_true', help='The Viridian Gym entrance no longer requires the first seven badges.')
 args = parser.parse_args()
+
+if args.open == True:
+    args.open_old_man = True
+    args.open_gym8 = True
 
 with args.romfile as romFile:
     romData = memoryview(bytearray(romFile.read()))
@@ -221,8 +229,27 @@ replace(romData, 0x75F, 'C3AF3F00')
 replace(romData, 0x799, 'C3BF3F00')
 replace(romData, 0x3FAF, 'FE522809F08BFEE82803C36B07C36307CB8EF08BFE522809F08BFEE82803C3A607C3AA07')
 
+# fix viridian gym to specifically check the first seven badges. if warps are shuffled,
+# the player might get the eighth badge early which would lock them out of the
+# viridian gym entrance.
+replace(romData, 0x19011, 'C31867')
+replace(romData, 0x1A718, 'FA56D3CBBFFE7FC21E50C31850')
+
+# if free hms are enabled, disables the badge check on using HM moves.
 if(args.freehms == True):
     replace(romData, 0x13178, "3EFF00")
+
+# sets the old man to his post-pokedex state if the openoldman flag is enabled.
+if(args.open_old_man == True):
+    replace(romData, 0xCAEF, "11")
+    replace(romData, 0xCAF2, "15")
+    replace(romData, 0x19042, "C9")
+    replace(romData, 0x19165, "7A")
+
+# opens up the viridian gym if the opengym8 flag is enabled.
+if(args.open_gym8 == True):
+    replace(romData, 0x19017, "00")
+    replace(romData, 0x1911A, "27")
 
 game = 0
 tries = 0
@@ -235,6 +262,12 @@ while True:
     game = generateGameWorld(r)
     if(args.freehms == True):
         game.inventory.add("free_hms")
+    if(args.knowhidden == True):
+        game.inventory.add("know_hidden")
+    if(args.open_old_man == True):
+        game.inventory.add("open_old_man")
+    if(args.open_gym8 == True):
+        game.inventory.add("open_gym8")
     new_items = game.shuffle_items(args.item_flags)
     if args.warps_r == True:
         new_warps = game.shuffle_warps(args)
