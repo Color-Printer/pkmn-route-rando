@@ -239,6 +239,13 @@ replace(romData, 0x1A718, 'FA56D3CBBFFE7FC21E50C31850')
 # stop s.s. anne from leaving after getting the cut hm
 replace(romData, 0x1DB5E, 'C9')
 
+# allow the saffron guards to block passage from either side.
+replace(romData, 0x1DF43, 'C3C26C0000')
+replace(romData, 0x1E0A6, 'C3D96C0000')
+replace(romData, 0x1E116, 'C3F06C0000')
+replace(romData, 0x1E1DC, 'C3076D0000')
+replace(romData, 0x1ECC2, 'FA2AD5FE0828083E40EAD3CCC3485F3E80EAD3CCC3485FFA2AD5FE0428083E80EAD3CCC3AB603E40EAD3CCC3AB60FA2AD5FE0228083E20EAD3CCC31B613E10EAD3CCC31B61FA2AD5FE0128083E10EAD3CCC3E1613E20EAD3CCC3E161')
+
 # if free hms are enabled, disables the badge check on using HM moves.
 if(args.freehms == True):
     replace(romData, 0x13178, "3EFF00")

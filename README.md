@@ -37,12 +37,15 @@ Don't. It doesn't even randomize everything yet. You can currently, however, run
 - Path between Viridian City and Route 2 is blocked until the Pokedex is acquired (originally just from VC to R2)
   - Viridian Gym is on the Route 2 side of this obstacle, and the ledge below it has been turned into trees
   - Cut can also be used to bypass the old man
-- Path between Pewter City and Route 3 is blocked until the Boulder Badge is acquired (originally just from PC to R3)
+- Path between Pewter City and Route 3 is blocked until Brock is defeated (originally just from PC to R3)
 - You can no longer hop down a ledge to get back to Pewter City after leaving the backside of the Pewter Museum
 - You can return to Mt. Moon from Cerulean City along Route 4
 - You can no longer use the ledge to the right side of Cerulean Gym to return to the main area of the city from the outside. You must use the Cuttable tree or find another way in
+- The officer guarding the burgled house in Cerulean is moved from the beginning
 - Both fossils can be obtained from Mt. Moon
 - S.S. Anne does not leave after getting the Cut HM
+- The Saffron City guards block passage from both sides until Tea is acquired
+  - Tea was backported in from FRLG, and is *normally* obtained at the first floor of the Celadon Mansion
 
 ## Things To Keep In Mind
 - Every town has direct access to exactly one Pokemon Center
@@ -61,6 +64,6 @@ Don't. It doesn't even randomize everything yet. You can currently, however, run
 - Safari Zone is left intact
 
 ## Things to Implement Later
-- An option to skip the Oak's Parcel sidequest (it and its location will be removed from the pools)
+- An option to skip the Oak's Parcel delivery (it and its location will be removed from the pools)
 - Anything I put on the Flags page on the wiki that are marked as not implemented
 - Fill out this README more, and better
