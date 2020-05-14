@@ -60,6 +60,7 @@ parser.add_argument('--knowhidden', dest='knowhidden', action='store_true', help
 parser.add_argument('--open', dest='open', action='store_true', help='Enables all the "open" flags.')
 parser.add_argument('--openoldman', dest='open_old_man', action='store_true', help='The old man in Viridian City no longer blocks the way.')
 parser.add_argument('--opengym8', dest='open_gym8', action='store_true', help='The Viridian Gym entrance no longer requires the first seven badges.')
+parser.add_argument('--faststart', dest='faststart', action='store_true', help="The player starts directly in Oak's Lab, ready to pick a starter.")
 args = parser.parse_args()
 
 if args.open == True:
@@ -235,6 +236,9 @@ replace(romData, 0x3FAF, 'FE522809F08BFEE82803C36B07C36307CB8EF08BFE522809F08BFE
 replace(romData, 0x19011, 'C31867')
 replace(romData, 0x1A718, 'FA56D3CBBFFE7FC21E50C31850')
 
+# stop s.s. anne from leaving after getting the cut hm
+replace(romData, 0x1DB5E, 'C9')
+
 # if free hms are enabled, disables the badge check on using HM moves.
 if(args.freehms == True):
     replace(romData, 0x13178, "3EFF00")
@@ -250,6 +254,11 @@ if(args.open_old_man == True):
 if(args.open_gym8 == True):
     replace(romData, 0x19017, "00")
     replace(romData, 0x1911A, "27")
+
+# allows the player to start in oak's lab ready to pick a starter
+if(args.faststart == True):
+    replace(romData, 0x6420, "282DC70B05010105")
+    replace(romData, 0x1CB4E, "214BD7CBFE00")
 
 game = 0
 tries = 0

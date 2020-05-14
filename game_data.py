@@ -19,20 +19,20 @@ def generateGameWorld(seed):
     game.newTown("pallet_town","Pallet Town",0x0,0x182C5)
     game.newExit("pallet_town","route_1")
     #newExit("pallet_town","route_21","canSurf()")
-    game.newWarp("pallet_town",0,"reds_house_1F",0,"north-red")
+    game.newWarp("pallet_town",0,"reds_house_1F",0,"north-start")
     game.newWarp("pallet_town",1,"blues_house",0,"north")
-    game.newWarp("pallet_town",2,"oaks_lab",1,"north-oak")
+    game.newWarp("pallet_town",2,"oaks_lab",1,"north-start")
     game.newNPC("pallet_town",2,"Pallet Girl")
     game.newNPC("pallet_town",3,"Technology Dude")
 
     ###Red's House###
     #1F
     game.newPokemonCenter("reds_house_1F","Red's House - 1F",0x25,0x481E6)
-    game.newWarp("reds_house_1F",0,"pallet_town",0,"south-red","True",[1],[0])
-    game.newWarp("reds_house_1F",2,"reds_house_2F",0,"stairs-red")
+    game.newWarp("reds_house_1F",0,"pallet_town",0,"south-start","True",[1],[0])
+    game.newWarp("reds_house_1F",2,"reds_house_2F",0,"stairs-start-dungeon")
     #2F
     game.newArea("reds_house_2F","Red's House - 2F",0x26,0x5C0D2)
-    game.newWarp("reds_house_2F",0,"reds_house_1F",2,"stairs-red")
+    game.newWarp("reds_house_2F",0,"reds_house_1F",2,"stairs-start-dungeon")
 
     ###Blue's House###
     game.newArea('blues_house',"Blue's House",0x27,0x19BD0)
@@ -42,7 +42,7 @@ def generateGameWorld(seed):
 
     ###Oak's Lab###
     game.newArea("oaks_lab","Prof. Oak's Lab",0x28,0x1D40C)
-    game.newWarp("oaks_lab",0,"pallet_town",2,"south-oak","True",[1],[2])
+    game.newWarp("oaks_lab",0,"pallet_town",2,"south-start","True",[1],[2])
     game.newNPC("oaks_lab",0,"Prof. Oak",[ItemLocation(POKEDEX, "Parcel Exchange","has(OAKS_PARCEL)")])
     #Oak will never be randomized (it would just break things too much otherwise), so it's okay
     #if he's object number 0
