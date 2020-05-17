@@ -4,10 +4,10 @@ A key item/warp randomizer for Pokemon Red and Blue, in development.
 Inspired by stump's Pokémon Red/Blue Key Item Randomizer: https://github.com/stump/keyrand
 (pieces of the patcher code were shamelessly lifted from there)
 
-CURRENTLY MAPPING OUT LOGIC: up through Rock Tunnel
+CURRENTLY MAPPING OUT LOGIC: up through most of Lavender Town and Pokemon Tower
 
 ## HOW TO USE
-Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize items and warps up to Vermillion City and the S.S. Anne. There is no completion logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
+Don't. It doesn't even randomize everything yet. You can currently, however, run "patcher.py [rom filname] [flags]" to implement some map changes and randomize items ~~and warps~~ (*please don't randomize warps at the moment*) up to a certain point (see above). There is no completion logic applied here yet, however. **The program only accepts unaltered UE region Pokemon Red or Blue games!**
 
 ### Flags
 - **--items [item flags]** - Shuffles items. Item flags are lists of characters separated by spaces. Invalid flags are ignored unless they make Python yell at you or something. See [the Wiki](https://github.com/Color-Printer/pkmn-route-rando/wiki/Flags) for more details.
@@ -19,13 +19,14 @@ Don't. It doesn't even randomize everything yet. You can currently, however, run
   - If you already use a flag in one pool and try to put it in another, it will be ignored. Only the first occurrence of each flag counts.
 - **--warps** - Shuffles warps.
 - **--dungeons** - Breaks up most dungeon and multi-floor buildings when shuffling warps. Does nothing if --warps is not active.
+- ***DO NOT USE THE WARP SHUFFLE UNTIL IT IS MAJORLY REFACTORED SOMETIME IN THE FUTURE - PROGRAM WILL ALMOST NEVER GENERATE A VALID SEED***
 - See the wiki page linked above for some more flags. More information will be added here later.
 
 ## IMPLEMENTED
 - A solver that can attempt to go from point A to point B with a set starting inventory, picking up items along the way
 - An algorithm for finding "bridges" in the map, useful for making sure the player can't find their way to the other side of one-way obstacles
 - Shuffling and mixing of various item pools
-- Warp shuffling
+- Warp shuffling (***NOT GOOD***)
 - No logic has been connected yet to either shuffles, with the exception of making sure all locations are physically connected in one group and each town has direct access to exactly one Pokemon Center
 - Writing patches to a ROM file, including logic fixes and behind-the-scenes fixes to make the replacements work properly
 - Basic seed functionality
