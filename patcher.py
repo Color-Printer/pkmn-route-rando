@@ -290,13 +290,32 @@ while True:
     if not game.allPhysicallyConnected():
         print("TRY AGAIN - Not all maps connected!")
         continue
-    if not game.checkPokemonCenters():
-        print("TRY AGAIN - Every town should have direct access to exactly one Pokemon Center!")
-        continue
+    #if not game.checkPokemonCenters():
+    #    print("TRY AGAIN - Every town should have direct access to exactly one Pokemon Center!")
+    #    continue
     break
 
+game.apply_item_mapping(new_items)
+
+#print(game.all_item_locs[0].item.name)
+#print(game.key_item_locs[0].item.name)
+print(game.areas["blues_house"].objects[1].itemsHeld[0].item.name)
+
+for n, a in game.areas.items():
+    print(a.name + " - " + str(game.canGetToFromStart(a.id)))
+
 for old, new in new_items.items():
-    replace_item(romData,old.address,new.item)
+    if(len(old)==4):
+        if(old[2] == True):
+            o_a = game.areas[old[0]].hiddenItems[old[1]].address
+            o_i = game.areas[old[0]].hiddenItems[old[1]].item
+        else:
+            o_a = game.areas[old[0]].objects[old[1]].address
+            o_i = game.areas[old[0]].objects[old[1]].item
+    else:
+        o_a = game.areas[old[0]].objects[old[1]].itemsHeld[old[3]].address
+        o_i = game.areas[old[0]].objects[old[1]].itemsHeld[old[3]].item
+    replace_item(romData,o_a,o_i)
 
 if args.warps_r == True:
     for a, b in new_warps.items():

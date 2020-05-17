@@ -10,6 +10,7 @@ class World:
         self.npc_item_locs = []
         self.item_pickups_locs = []
         self.hidden_item_locs = []
+        self.all_item_locs = []
         self.allWarps = []
         self.random = seed
 
@@ -40,18 +41,31 @@ class World:
 
     def newItemLoc(self,id,o_id,name,item,req="True",address=0):
         self.areas[id].objects[o_id] = ItemLocation(item,name,req,address)
-        self.item_pickups_locs.append(self.areas[id].objects[o_id])
+        self.item_pickups_locs.append((id,o_id,False,item))
+        self.all_item_locs.append((id,o_id,False,item))
 
     def newKeyItemLoc(self,id,o_id,name,item,req="True",address=0):
         self.areas[id].objects[o_id] = ItemLocation(item,name,req,address)
-        self.key_item_locs.append(self.areas[id].objects[o_id])
+        self.key_item_locs.append((id,o_id,False,item))
+        self.all_item_locs.append((id,o_id,False,item))
 
     def newNPC(self,id,o_id,name,items=[],req="True"):
         self.areas[id].objects[o_id] = NPC(name,items,req)
 
     def newHiddenItem(self,id,o_id,name,item,req="True",address=0):
         self.areas[id].hiddenItems[o_id] = ItemLocation(item,name,req,address)
-        self.hidden_item_locs.append(self.areas[id].hiddenItems[o_id])
+        self.hidden_item_locs.append((id,o_id,True,item))
+        self.all_item_locs.append((id,o_id,True,item))
+
+    def addNPCItemLoc(self,id,o_id,held_id):
+        item = self.areas[id].objects[o_id].itemsHeld[held_id].item
+        self.npc_item_locs.append((id,o_id,False,held_id,item))
+        self.all_item_locs.append((id,o_id,False,held_id,item))
+
+    def addNPCKeyItemLoc(self,id,o_id,held_id):
+        item = self.areas[id].objects[o_id].itemsHeld[held_id].item
+        self.key_item_locs.append((id,o_id,False,held_id,item))
+        self.all_item_locs.append((id,o_id,False,held_id,item))
 
     def clearReachableFlags(self):
         for n, a in self.areas.items():
@@ -190,6 +204,17 @@ class World:
             item_mapping.update(mapping)
 
         return item_mapping
+
+    def apply_item_mapping(self,item_map):
+        for old, new in item_map.items():
+            n_i = new[len(new)-1]
+            if(len(old)==4):
+                if(old[2] == True):
+                    self.areas[old[0]].hiddenItems[old[1]].item = n_i
+                else:
+                    self.areas[old[0]].objects[old[1]].item = n_i
+            else:
+                self.areas[old[0]].objects[old[1]].itemsHeld[old[3]].item = n_i
 
     def shuffle_warps(self,flags):
         warp_mapping = {}

@@ -38,7 +38,7 @@ def generateGameWorld(seed):
     game.newArea('blues_house',"Blue's House",0x27,0x19BD0)
     game.newWarp("blues_house",0,"pallet_town",1,"south","True",[1],[1])
     game.newNPC("blues_house",1,"Daisy Oak",[ItemLocation(TOWN_MAP,"Map Gift","has(POKEDEX)",address=0x19b7c)])
-    game.key_item_locs.append(game.areas["blues_house"].objects[1].itemsHeld[0])
+    game.addNPCKeyItemLoc("blues_house",1,0)
 
     ###Oak's Lab###
     game.newArea("oaks_lab","Prof. Oak's Lab",0x28,0x1D40C)
@@ -55,7 +55,7 @@ def generateGameWorld(seed):
     game.newExit("route_1","pallet_town")
     game.newExit("route_1","viridian_city")
     game.newNPC("route_1",1,"Potion Guy",[ItemLocation(POTION,"Free Potion",address=0x1CACA)])
-    game.npc_item_locs.append(game.areas["route_1"].objects[1].itemsHeld[0])
+    game.addNPCItemLoc("route_1",1,0)
     game.newNPC("route_1",2,"Ledge Dude")
 
     ###Viridian City###
@@ -71,7 +71,7 @@ def generateGameWorld(seed):
     game.newNPC("viridian_city",1,"Pokeball Kid")
     game.newNPC("viridian_city",3,"Caterpillar Kid")
     game.newNPC("viridian_city",6,"Dream Eater Guy",[ItemLocation(TM_42,"Dream Eater TM",address=0x191A6)],"canCut() or canSurf()")
-    game.npc_item_locs.append(game.areas["viridian_city"].objects[6].itemsHeld[0])
+    game.addNPCItemLoc("viridian_city",6,0)
     game.newNPC("viridian_city",7,"Old Man",req="has(POKEDEX)")
     game.newHiddenItem("viridian_city",0,"Hidden Potion on Tree",POTION,address=0x46F8F)
     #Above old man
@@ -110,7 +110,7 @@ def generateGameWorld(seed):
     game.newArea("viridian_gym","Viridian Gym",0x2D,0x74BE0)
     game.newWarp("viridian_gym",0,"viridian_north",4,"south","True",[1],[4])
     game.newNPC("viridian_gym",1,"Giovanni",[ItemLocation(EARTHBADGE,"Giovanni's Badge"),ItemLocation(TM_27,"Giovanni's TM",address=0x749A3)])
-    game.npc_item_locs.append(game.areas["viridian_gym"].objects[1].itemsHeld[1])
+    game.addNPCItemLoc("viridian_gym",1,1)
     game.newNPC("viridian_gym",10,"Viridian Gym Guide")
     game.newItemLoc("viridian_gym",11,"Revive",REVIVE,address=0x74C3E)
 
@@ -147,7 +147,7 @@ def generateGameWorld(seed):
     game.newWarp("route_2_gate",1,"route_2m",3,"north","True",[0],[3])
     game.newWarp("route_2_gate",2,"route_2se",4,"south","True",[3],[4])
     game.newNPC("route_2_gate",1,"Flash Aide",[ItemLocation(FLASH,"10 Pokemon Reward",address=0x5d5e8)])
-    game.key_item_locs.append(game.areas["route_2_gate"].objects[1].itemsHeld[0])
+    game.addNPCKeyItemLoc("route_2_gate",1,0)
     game.newNPC("route_2_gate",2,"Route 2 Catcher")
 
     ###Route 2 Trade House###
@@ -219,14 +219,14 @@ def generateGameWorld(seed):
     game.newArea("museum_back","Pewter Museum - Back",0x34,0x5C2C3)
     game.newWarp("museum_back",2,"pewter_city",1,"south","True",[3],[1])
     game.newNPC("museum_back",3,"Old Amber Scientist",[ItemLocation(OLD_AMBER,"Old Amber",address=0x5c266)])
-    game.key_item_locs.append(game.areas["museum_back"].objects[3].itemsHeld[0])
+    game.addNPCKeyItemLoc("museum_back",3,0)
     game.newNPC("museum_back",4,"Museum Back Scientist")
 
     ###Pewter Gym###
     game.newArea("pewter_gym","Pewter Gym",0x36,0x5c530)
     game.newWarp("pewter_gym",0,"pewter_city",2,"south","True",[1],[2])
     game.newNPC("pewter_gym",1,"Brock",[ItemLocation(BOULDERBADGE,"Brock's Badge"),ItemLocation(TM_34,"Brock's TM",address=0x5C3ED)])
-    game.npc_item_locs.append(game.areas["pewter_gym"].objects[1].itemsHeld[1])
+    game.addNPCItemLoc("pewter_gym",1,1)
     game.newNPC("pewter_gym",3,"Pewter Gym Guide")
 
     ###Pewter Nidoran House###
@@ -345,7 +345,7 @@ def generateGameWorld(seed):
     game.newExit("cerulean_outskirts","route_9","canCut()")
     game.newWarp("cerulean_outskirts",7,"cerulean_trashed_house",2,"south")
     game.newNPC("cerulean_outskirts",2,"Rocket Grunt Thief",[ItemLocation(TM_28,"Stolen Dig TM",address=0x196B5)])
-    game.npc_item_locs.append(game.areas["cerulean_outskirts"].objects[2].itemsHeld[0])
+    game.addNPCItemLoc("cerulean_outskirts",2,0)
     #Cerulean Cave Entrance
     game.newArea("cerulean_cave_entrance","Cerulean City - Cave Entrance",0x03,0x18788)
     game.newExit("cerulean_cave_entrance","route_24","canSurf()")
@@ -369,7 +369,7 @@ def generateGameWorld(seed):
     game.newArea("bike_shop","Bike Shop",0x42,0x1d868)
     game.newWarp("bike_shop",0,"cerulean_city",4,"south","True,",[1],[4])
     game.newNPC("bike_shop",1,"Bike Shop Owner",[ItemLocation(BICYCLE,"Bike For Sale","has(BIKE_VOUCHER)",address=0x1d765)])
-    game.key_item_locs.append(game.areas["bike_shop"].objects[1].itemsHeld[0])
+    game.addNPCKeyItemLoc("bike_shop",1,0)
 
     ###Cerulean PokeMart###
     game.newArea("cerulean_mart","Cerulean PokeMart",0x43,0x5C8AA)
@@ -387,7 +387,7 @@ def generateGameWorld(seed):
     game.newArea("cerulean_gym","Cerulean Gym",0x41,0x5C836)
     game.newWarp("cerulean_gym",0,"cerulean_city",3,"south","True",[1],[3])
     game.newNPC("cerulean_gym",1,"Misty",[ItemLocation(CASCADEBADGE,"Misty's Badge"),ItemLocation(TM_11,"Misty's TM",address=0x5C71B)])
-    game.npc_item_locs.append(game.areas["cerulean_gym"].objects[1].itemsHeld[1])
+    game.addNPCItemLoc("cerulean_gym",1,1)
 
     ###Route 24###
     game.newArea("route_24","Route 24",0x23,0x506A6)
@@ -395,7 +395,7 @@ def generateGameWorld(seed):
     game.newExit("route_24","route_25")
     game.newExit("route_24","cerulean_cave_entrance","canSurf()")
     game.newNPC("route_24",1,"Nugget Bridge Rocket",[ItemLocation(NUGGET,"Nugget Prize",address=0x514B9)])
-    game.npc_item_locs.append(game.areas["route_24"].objects[1].itemsHeld[0])
+    game.addNPCItemLoc("route_24",1,0)
     game.newItemLoc("route_24",8,"TM 45",TM_45,address=0x506E6)
 
     ###Route 25###
@@ -410,7 +410,7 @@ def generateGameWorld(seed):
     game.newArea("bill_cottage","Bill's Cottage",0x58,0x1E8E1)
     game.newWarp("bill_cottage",0,"route_25",0,"south","True",[1],[0])
     game.newNPC("bill_cottage",2,"Bill",[ItemLocation(S_S_TICKET,"Bill's Ticket",address=0x1e884)])
-    game.key_item_locs.append(game.areas["bill_cottage"].objects[2].itemsHeld[0])
+    game.addNPCKeyItemLoc("bill_cottage",2,0)
 
     ###Route 5###
     #Cerulean Side
@@ -482,7 +482,7 @@ def generateGameWorld(seed):
     game.newArea("pokemon_fan_club","Pokemon Fan Club",0x5A,0x59C99)
     game.newWarp("pokemon_fan_club",0,"vermilion_city",1,"south","True",[1],[1])
     game.newNPC("pokemon_fan_club",5,"Fan Club Chairman",[ItemLocation(BIKE_VOUCHER,"Bike Voucher Gift",address=0x59c39)])
-    game.key_item_locs.append(game.areas["pokemon_fan_club"].objects[5].itemsHeld[0])
+    game.addNPCKeyItemLoc("pokemon_fan_club",5,0)
 
     ###Vermilion PokeMart###
     game.newArea("vermilion_mart","Vermilion PokeMart",0x5B,0x5C9F6)
@@ -492,7 +492,7 @@ def generateGameWorld(seed):
     game.newArea("vermilion_gym","Vermilion Gym",0x5C,0x5CC00)
     game.newWarp("vermilion_gym",0,"vermilion_corner",3,"south","True",[1],[3])
     game.newNPC("vermilion_gym",1,"Lt. Surge",[ItemLocation(THUNDERBADGE,"Lt. Surge's Badge"),ItemLocation(TM_24,"Lt. Surge's TM",address=0x5CAB8)])
-    game.npc_item_locs.append(game.areas["vermilion_gym"].objects[1].itemsHeld[1])
+    game.addNPCItemLoc("vermilion_gym",1,1)
 
     ###Vermilion Pidgey House###
     game.newArea("vermilion_pidgey_house","Vermilion Pidgey House",0x5D,0x1DB22)
@@ -506,7 +506,7 @@ def generateGameWorld(seed):
     game.newArea("vermilion_old_rod_house","Vermilion Old Rod House",0xA3,0x560D1)
     game.newWarp("vermilion_old_rod_house",0,"vermilion_city",8,"south","True",[1],[8])
     game.newNPC("vermilion_old_rod_house",1,"Vermilion Fishing Guru",[ItemLocation(OLD_ROD,"Old Rod Gift",address=0x5608e)])
-    game.key_item_locs.append(game.areas["vermilion_old_rod_house"].objects[1].itemsHeld[0])
+    game.addNPCKeyItemLoc("vermilion_old_rod_house",1,0)
 
     ###Vermilion Dock###
     game.newDungeon("ss_anne_dock","S.S Anne - Vermilion Dock",0x5E,0x1DCC8)
@@ -604,7 +604,7 @@ def generateGameWorld(seed):
     game.newDungeon("ss_anne_captain","S.S Anne - Captain's Room",0x65,0x61948)
     game.newWarp("ss_anne_captain",0,"ss_anne_2f",8,"stairs-dungeon")
     game.newNPC("ss_anne_captain",1,"S.S. Anne Captain",[ItemLocation(CUT,"Cut HM Gift",address=0x618c3)])
-    game.key_item_locs.append(game.areas["ss_anne_captain"].objects[1].itemsHeld[0])
+    game.addNPCKeyItemLoc("ss_anne_captain",1,0)
 
     ###Route 11###
     #Vermillion Side
@@ -628,7 +628,7 @@ def generateGameWorld(seed):
     game.newArea("route_11_gate_2f","Route 11 Gate - 2F",0x56,0x494dc)
     game.newWarp("route_11_gate_2f",0,"route_11_gate_1f",4,"stairs-dungeon")
     game.newNPC("route_11_gate_2f",2,"Itemfinder Aide",[ItemLocation(ITEMFINDER,"30 Pokemon Reward",address=0x49478)])
-    game.key_item_locs.append(game.areas["route_11_gate_2f"].objects[2].itemsHeld[0])
+    game.addNPCKeyItemLoc("route_11_gate_2f",2,0)
 
     ###Diglett's Cave###
     #Vermillion Side (Route 11)
@@ -665,7 +665,7 @@ def generateGameWorld(seed):
     game.newWarp("route_10pp",3,"power_plant",0,"north")
     #South Side
     game.newArea("route_10s","Route 10 - South",0x15,0x582f8)
-    #game.newExit("route_10s","lavender_town")
+    game.newExit("route_10s","lavender_town")
     game.newWarp("route_10s",2,"rock_tunnel_1f_ex",2,"north")
     game.newHiddenItem("route_10s",0,"Hidden Max Ether",MAX_ETHER,"True",address=0x46ea4)
 
@@ -705,6 +705,56 @@ def generateGameWorld(seed):
     game.newItemLoc("power_plant",14,"TM 33",TM_33,address=0x1e439)
     game.newHiddenItem("power_plant",1,"Hidden Max Elixer",MAX_ELIXER,"True",address=0x46f12)
     game.newHiddenItem("power_plant",2,"Hidden PP Up",PP_UP,"True",address=0x46f18)
+
+    ###Lavender Town###
+    game.newTown("lavender_town","Lavender Town",0x04,0x4402f)
+    game.newExit("lavender_town","route_10s")
+    #game.newExit("lavender_town","route_8l")
+    #game.newExit("lavender_town","route_12n")
+    game.newWarp("lavender_town",0,"lavender_center",0,"north")
+    game.newWarp("lavender_town",1,"pokemon_tower_1f",0,"north")
+    #game.newWarp("lavender_town",2,"fuji_house",0,"north")
+    game.newWarp("lavender_town",3,"lavender_mart",0,"north")
+    #game.newWarp("lavender_town",4,"cubone_house",0,"north")
+    #game.newWarp("lavender_town",5,"name_rater_house",0,"north")
+
+    ###Lavender Pokemon Center###
+    game.newPokemonCenter("lavender_center","Lavender Pokemon Center",0x8D,0x5C8F6)
+    game.newWarp("lavender_center",0,"lavender_town",0,"south","True",[1],[0])
+
+    ###Lavender PokeMart###
+    game.newArea("lavender_mart","Lavender PokeMart",0x96,0x5c95f)
+    game.newWarp("lavender_mart",0,"lavender_town",3,"south","True",[1],[3])
+
+    ###Pokemon Tower###
+    #1F
+    game.newDungeon("pokemon_tower_1f","Pokemon Tower - 1F",0x8E,0x60454)
+    game.newWarp("pokemon_tower_1f",0,"lavender_town",1,"south","True",[1],[1])
+    game.newWarp("pokemon_tower_1f",2,"pokemon_tower_2f",1,"stairs-dungeon")
+    # #2F
+    game.newDungeon("pokemon_tower_2f","Pokemon Tower - 2F",0x8F,0x60648)
+    game.newWarp("pokemon_tower_2f",0,"pokemon_tower_3f",0,"stairs-dungeon")
+    game.newWarp("pokemon_tower_2f",1,"pokemon_tower_1f",2,"stairs-dungeon")
+    # #3F
+    game.newDungeon("pokemon_tower_3f","Pokemon Tower - 3F",0x90,0x6075f)
+    game.newWarp("pokemon_tower_3f",0,"pokemon_tower_2f",0,"stairs-dungeon")
+    game.newWarp("pokemon_tower_3f",1,"pokemon_tower_4f",1,"stairs-dungeon")
+    # #4F
+    game.newDungeon("pokemon_tower_4f","Pokemon Tower - 4F",0x91,0x6088d)
+    game.newWarp("pokemon_tower_4f",0,"pokemon_tower_5f",0,"stairs-dungeon")
+    game.newWarp("pokemon_tower_4f",1,"pokemon_tower_3f",1,"stairs-dungeon")
+    # #5F
+    game.newDungeon("pokemon_tower_5f","Pokemon Tower - 5F",0x92,0x60a4a)
+    game.newWarp("pokemon_tower_5f",0,"pokemon_tower_4f",0,"stairs-dungeon")
+    game.newWarp("pokemon_tower_5f",1,"pokemon_tower_6f",0,"stairs-dungeon")
+    # #6F
+    game.newDungeon("pokemon_tower_6f","Pokemon Tower - 6F",0x93,0x60c5d)
+    game.newWarp("pokemon_tower_6f",0,"pokemon_tower_5f",1,"stairs-dungeon")
+    game.newWarp("pokemon_tower_6f",1,"pokemon_tower_7f",0,"stairs-dungeon","has(SILPH_SCOPE)")
+    # #7F
+    game.newDungeon("pokemon_tower_7f","Pokemon Tower - 7F",0x94,0x60ef8)
+    game.newWarp("pokemon_tower_7f",0,"pokemon_tower_6f",1,"stairs-dungeon")
+    game.newFakeItemLoc("pokemon_tower_7f",0,"Rescue Mr. Fuji","fuji_rescue")
 
     return game
     # for n, a in game.areas.items():
