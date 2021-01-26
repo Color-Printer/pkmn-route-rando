@@ -36,12 +36,12 @@ Don't. It doesn't even randomize everything yet. You can currently, however, run
 
 ## Logic Changes From Base Game (these are actually implemented in the patcher)
 - Path between Viridian City and Route 2 is blocked until the Pokedex is acquired (originally just from VC to R2)
-  - Viridian Gym is on the Route 2 side of this obstacle, and the ledge below it has been turned into trees
+  - Viridian Gym is on the Route 2 side of this obstacle, and the ledge below it has been turned into a fence
   - Cut can also be used to bypass the old man
 - Path between Pewter City and Route 3 is blocked until Brock is defeated (originally just from PC to R3)
 - You can no longer hop down a ledge to get back to Pewter City after leaving the backside of the Pewter Museum
 - You can return to Mt. Moon from Cerulean City along Route 4
-- You can no longer use the ledge to the right side of Cerulean Gym to return to the main area of the city from the outside. You must use the Cuttable tree or find another way in
+- You can no longer use the ledge to the right side of Cerulean Gym to return to the main area of the city from the outside
 - The officer guarding the burgled house in Cerulean is moved from the beginning
 - Both fossils can be obtained from Mt. Moon
 - S.S. Anne does not leave after getting the Cut HM
@@ -51,10 +51,10 @@ Don't. It doesn't even randomize everything yet. You can currently, however, run
 ## Things To Keep In Mind
 - Every town has direct access to exactly one Pokemon Center
   - The Mt. Moon and Rock Tunnel Pokemon Centers are left as is...for now
-  - This does NOT apply to PokeMarts
-- The back entrances of Pokemon Mansion and the Power Plant lead back to wherever the regular entrance leads
+  - This does NOT apply to PokeMarts or Gyms unless the --onemart or --onegym flag is used, respectively
+- The back entrances of Pokemon Mansion and the Power Plant lead back to wherever the regular entrance leads (unless the --backdoors flag is used)
 - Flash is available before you have to traverse Rock Tunnel
-- If key items are shuffled with hidden items, you will always be able to get the Itemfinder before picking up any hidden items
+- If key items are shuffled with hidden items, you will always be able to get the Itemfinder before picking up any hidden items (unless the --knowhidden flag is used)
 - The Viridian Gym entrance specifically checks for badges 1 through 7. The Earth Badge is optional.
 
 ## Things To Keep In Mind That Don't Actually Apply Yet
